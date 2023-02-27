@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:grocery/constants/theme_data.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
-import 'package:grocery/screens/bottom_bar_screen.dart';
-import 'package:grocery/screens/home_screen.dart';
+import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() {

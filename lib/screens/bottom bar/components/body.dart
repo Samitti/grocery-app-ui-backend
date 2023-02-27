@@ -13,16 +13,14 @@ class BodyBottomBarScreen extends StatefulWidget {
 }
 
 class _BodyBottomBarScreenState extends State<BodyBottomBarScreen> {
-  
   int _selectedIndex = 0;
 
-  final List _pages = const [
-    HomeScreen(),
-    CategoryScreen(),
-    CartScreen(),
-    UserProfileScreen()
+  final List<Map<String, dynamic>> _pages = const [
+    {"page": HomeScreen(), "title": "Home"},
+    {"page": CategoryScreen(), "title": "Category"},
+    {"page": CartScreen(), "title": "Cart"},
+    {"page": UserProfileScreen(), "title": "User"}
   ];
-
 
   void _selectedScreen(int index) {
     setState(() {
@@ -30,14 +28,16 @@ class _BodyBottomBarScreenState extends State<BodyBottomBarScreen> {
     });
   }
 
-
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex],
-      bottomNavigationBar: BottomBarNavigations(press: _selectedScreen, selectedIndex: _selectedIndex,)
-    );
+        appBar: AppBar(
+          title: Text(_pages[_selectedIndex]['title']),
+        ),
+        body: _pages[_selectedIndex]['page'],
+        bottomNavigationBar: BottomBarNavigations(
+          press: _selectedScreen,
+          selectedIndex: _selectedIndex,
+        ));
   }
 }
-
-

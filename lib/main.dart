@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:grocery/constants/routes.dart';
 import 'package:grocery/constants/theme_data.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
 import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
@@ -34,7 +35,8 @@ class _MyAppState extends State<MyApp> {
             debugShowCheckedModeBanner: false,
             title: 'Flutter Demo',
             theme: Styles.themeData(darkThemeProvider.getDarkTheme, context),
-            home: const BottomBarScreen(),
+            initialRoute: BottomBarScreen.routeName,
+            routes: routes,
           );
         }
       ),

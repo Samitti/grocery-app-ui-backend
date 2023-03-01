@@ -1,3 +1,4 @@
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/constants/dimension.dart';
@@ -13,7 +14,7 @@ class OnSaleWidget extends StatelessWidget {
     final Color color = Utils(context).color;
     final AppDimensions dimensions = AppDimensions(context);
     return Padding(
-      padding: EdgeInsets.all(dimensions.getScreenW(12)),
+      padding: EdgeInsets.all(dimensions.getScreenW(10)),
       child: InkWell(
         onTap: () {},
         child: Container(
@@ -21,7 +22,7 @@ class OnSaleWidget extends StatelessWidget {
             color: Theme.of(context).cardColor.withOpacity(0.9),
             borderRadius: BorderRadius.circular(12),
           ),
-          padding: EdgeInsets.all(dimensions.getScreenW(15)),
+          padding: EdgeInsets.all(dimensions.getScreenW(10)),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.start,
@@ -29,14 +30,20 @@ class OnSaleWidget extends StatelessWidget {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Image.network(
-                    'https://i.ibb.co/F0s3FHQ/Apricots.png',
+                  FancyShimmerImage(
+                    imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
                     height: dimensions.getScreenH(90),
-                    fit: BoxFit.fill,
+                    width: dimensions.getScreenH(90),
+                    boxFit: BoxFit.fill,
                   ),
                   Column(
                     children: [
-                      TextWidget(color: color, text: '1 KG', textSize: dimensions.getScreenW(20), isTitle: true,),
+                      TextWidget(
+                        color: color,
+                        text: '1 KG',
+                        textSize: dimensions.getScreenW(20),
+                        isTitle: true,
+                      ),
                       SizedBox(
                         height: dimensions.getScreenH(5),
                       ),
@@ -65,8 +72,15 @@ class OnSaleWidget extends StatelessWidget {
                 ],
               ),
               const PriceWidget(),
-              SizedBox(height: dimensions.getScreenH(5),),
-              TextWidget(text: 'Title', color: color, textSize: dimensions.getScreenW(20), isTitle: true,),
+              SizedBox(
+                height: dimensions.getScreenH(5),
+              ),
+              TextWidget(
+                text: 'Title',
+                color: color,
+                textSize: dimensions.getScreenW(20),
+                isTitle: true,
+              ),
             ],
           ),
         ),

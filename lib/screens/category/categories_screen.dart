@@ -18,12 +18,15 @@ class CategoryScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
-        title: TextWidget(
-            text: 'Categories',
-            color: utils.color,
-            textSize: dimensions.getScreenW(25),
-            isTitle: true,
-          ),
+        title: Padding(
+          padding: EdgeInsets.only(left: dimensions.getScreenH(10), top: dimensions.getScreenH(15)),
+          child: TextWidget(
+              text: 'Categories',
+              color: utils.color,
+              textSize: dimensions.getScreenW(25),
+              isTitle: true,
+            ),
+        ),
       ),
       body: const BodyCategoryScreen()
     );

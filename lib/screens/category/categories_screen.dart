@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/screens/category/components/body.dart';
-import 'package:grocery/services/utils.dart';
+import 'package:grocery/constants/utils.dart';
 
 class CategoryScreen extends StatelessWidget {
 

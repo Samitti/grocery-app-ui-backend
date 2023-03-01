@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:grocery/screens/home/components/theme_button.dart';
+import 'package:grocery/constants/dimension.dart';
+import 'package:grocery/widgets/theme_button.dart';
 import 'package:grocery/screens/user/components/list_tile_profile.dart';
 
 class Titles extends StatefulWidget {
@@ -16,6 +17,7 @@ class _TitlesState extends State<Titles> {
   final TextEditingController textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
+    final AppDimensions dimensions = AppDimensions(context);
     return Column(
       children: [
         ListTileProfile(
@@ -26,32 +28,32 @@ class _TitlesState extends State<Titles> {
             return await addressDialog(context);
           },
         ),
-        const SizedBox(height: 5),
+        SizedBox(height: dimensions.getScreenH(5)),
         ListTileProfile(
           leading: const Icon(IconlyLight.bag),
           title: "Order",
           press: () {},
         ),
-        const SizedBox(height: 5),
+        SizedBox(height: dimensions.getScreenH(5)),
         ListTileProfile(
           leading: const Icon(IconlyLight.heart),
           title: "Wishlist",
           press: () {},
         ),
-        const SizedBox(height: 5),
+        SizedBox(height: dimensions.getScreenH(5)),
         ListTileProfile(
           leading: const Icon(IconlyLight.show),
           title: "Viewed",
           press: () {},
         ),
-        const SizedBox(height: 5),
+        SizedBox(height: dimensions.getScreenH(5)),
         ListTileProfile(
           leading: const Icon(IconlyBold.unlock),
           title: "Forget Password",
           press: () {},
         ),
         const ThemeButton(),
-        const SizedBox(height: 5),
+        SizedBox(height: dimensions.getScreenH(5)),
         ListTileProfile(
           leading: const Icon(IconlyLight.logout),
           title: "Logout",
@@ -72,17 +74,17 @@ class _TitlesState extends State<Titles> {
               children: [
                 Image.asset(
                   "assets/images/warning-sign.png",
-                  height: 30,
-                  width: 30,
+                  height: AppDimensions(context).getScreenH(30),
+                  width: AppDimensions(context).getScreenH(30),
                   fit: BoxFit.fill,
                 ),
-                const SizedBox(
-                  width: 20,
+                SizedBox(
+                  width: AppDimensions(context).getScreenW(20),
                 ),
                 const Text("Sign Out")
               ],
             ),
-            content: const Text("Are you sure?" , style: TextStyle(fontSize: 18),),
+            content: Text("Are you sure?" , style: TextStyle(fontSize: AppDimensions(context).getScreenW(18)),),
             actions: [
               TextButton(
                 onPressed: () {
@@ -90,14 +92,14 @@ class _TitlesState extends State<Titles> {
                     Navigator.pop(context);
                   }
                 },
-                child: const Text("Cancel" , style: TextStyle(fontSize: 18),),
+                child: Text("Cancel" , style: TextStyle(fontSize: AppDimensions(context).getScreenW(18)),),
               ),
               TextButton(
                 onPressed: () {
                   Navigator.pop(context);
                 },
                 style: TextButton.styleFrom(foregroundColor: Colors.red),
-                child: const Text("Yes", style: TextStyle(fontSize: 18),),
+                child: Text("Yes", style: TextStyle(fontSize: AppDimensions(context).getScreenW(18)),),
               )
             ],
           );

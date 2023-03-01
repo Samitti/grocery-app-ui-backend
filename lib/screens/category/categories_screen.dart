@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/screens/category/components/body.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/widgets/text_widget.dart';
 
 class CategoryScreen extends StatelessWidget {
 
@@ -11,13 +13,17 @@ class CategoryScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final utils = Utils(context);
-
+    final AppDimensions dimensions = AppDimensions(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
-        titleTextStyle: TextStyle(fontSize: 25, fontWeight: FontWeight.bold, color: utils.color, height: 3),
-        title: const Text("Category"),
+        title: TextWidget(
+            text: 'Categories',
+            color: utils.color,
+            textSize: dimensions.getScreenW(25),
+            isTitle: true,
+          ),
       ),
       body: const BodyCategoryScreen()
     );

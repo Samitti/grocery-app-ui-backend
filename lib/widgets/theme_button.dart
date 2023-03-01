@@ -13,7 +13,6 @@ class _ThemeButtonState extends State<ThemeButton> {
   @override
   Widget build(BuildContext context) {
     final themeState = Provider.of<DarkThemeProvider>(context);
-
     return SwitchListTile(
       title: const Text("Theme"),
       activeColor: Colors.white,

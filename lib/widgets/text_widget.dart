@@ -22,6 +22,7 @@ class TextWidget extends StatelessWidget {
       text,
       maxLines: maxLines,
       style: TextStyle(
+        height: 3,
           overflow: TextOverflow.ellipsis,
           color: color,
           fontSize: textSize,

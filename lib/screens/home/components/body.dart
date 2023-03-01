@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/screens/home/components/on_sale.dart';
 import 'package:grocery/screens/home/components/swiper_images.dart';
 
 class BodyHomeScreen extends StatelessWidget {
@@ -9,6 +10,7 @@ class BodyHomeScreen extends StatelessWidget {
     return const Column(
       children: [
         SwiperImages(),
+        OnSaleWidget(),
       ],
     );
   }

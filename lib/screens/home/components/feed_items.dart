@@ -36,7 +36,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: dimensions.getScreenH(15),
-          vertical: dimensions.getScreenH(10)),
+          vertical: dimensions.getScreenH(5)),
       child: InkWell(
         onTap: () {},
         child: Container(
@@ -54,7 +54,9 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: dimensions.getScreenW(10), vertical: 0),
+                  horizontal: dimensions.getScreenW(10),
+                  vertical: 0,
+                ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -99,7 +101,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                             child: TextFormField(
                               onChanged: (value) {
                                 setState(() {});
-                                if (value != ""){
+                                if (value != "") {
                                   value = '0';
                                 }
                               },

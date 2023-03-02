@@ -17,7 +17,7 @@ class BodyCategoryScreen extends StatelessWidget {
         crossAxisSpacing: dimensions.getScreenW(20),
         mainAxisSpacing: dimensions.getScreenW(20),
         children: List.generate(
-          6,
+          catList.length,
           (index) => CategoryCards(
             backcolor: catColor[index],
             categoryText: catList[index]['catText'],

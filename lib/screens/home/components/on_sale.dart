@@ -4,6 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/screens/home/components/price.dart';
+import 'package:grocery/widgets/heart_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
 class OnSaleWidget extends StatelessWidget {
@@ -57,14 +58,7 @@ class OnSaleWidget extends StatelessWidget {
                               size: dimensions.getScreenW(22),
                             ),
                           ),
-                          GestureDetector(
-                            onTap: () {},
-                            child: Icon(
-                              IconlyLight.heart,
-                              color: color,
-                              size: dimensions.getScreenW(22),
-                            ),
-                          ),
+                          HeartWidget(color: color, size:dimensions.getScreenW(22)),
                         ],
                       ),
                     ],

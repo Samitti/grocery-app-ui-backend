@@ -74,10 +74,18 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const PriceWidget(),
+                    PriceWidget(
+                      isOnSale: false,
+                      salePrice: 2.99,
+                      price: 5.0,
+                      textPrice: _quantitlyTextController.text,
+                    ),
                     Flexible(
                       child: Row(
                         children: [
+                          SizedBox(
+                            width: dimensions.getScreenW(8),
+                          ),
                           TextWidget(
                             text: 'KG',
                             color: color,
@@ -85,10 +93,17 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                             isTitle: true,
                           ),
                           SizedBox(
-                            width: dimensions.getScreenW(8),
+                            width: dimensions.getScreenW(25),
                           ),
                           Flexible(
                             child: TextFormField(
+                              onChanged: (value) {
+                                setState(() {});
+                                if (value != ""){
+                                  value = '0';
+                                }
+                              },
+                              textAlign: TextAlign.center,
                               controller: _quantitlyTextController,
                               key: const ValueKey(10),
                               style: TextStyle(

@@ -58,14 +58,20 @@ class OnSaleWidget extends StatelessWidget {
                               size: dimensions.getScreenW(22),
                             ),
                           ),
-                          HeartWidget(color: color, size:dimensions.getScreenW(22)),
+                          HeartWidget(
+                              color: color, size: dimensions.getScreenW(22)),
                         ],
                       ),
                     ],
                   )
                 ],
               ),
-              const PriceWidget(),
+              const PriceWidget(
+                isOnSale: true,
+                salePrice: 2.99,
+                price: 5.0,
+                textPrice: '1',
+              ),
               SizedBox(
                 height: dimensions.getScreenH(5),
               ),

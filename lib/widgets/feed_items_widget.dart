@@ -15,17 +15,17 @@ class FeedsWidgets extends StatefulWidget {
 }
 
 class _FeedsWidgetsState extends State<FeedsWidgets> {
-  final _quantitlyTextController = TextEditingController();
+  final _quantityController = TextEditingController();
 
   @override
   void initState() {
-    _quantitlyTextController.text = "1";
+    _quantityController.text = "1";
     super.initState();
   }
 
   @override
   void dispose() {
-    _quantitlyTextController.dispose();
+    _quantityController.dispose();
     super.dispose();
   }
 
@@ -80,7 +80,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                       isOnSale: false,
                       salePrice: 2.99,
                       price: 5.0,
-                      textPrice: _quantitlyTextController.text,
+                      textPrice: _quantityController.text,
                     ),
                     Flexible(
                       child: Row(
@@ -98,28 +98,26 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                             width: dimensions.getScreenW(25),
                           ),
                           Flexible(
-                            child: TextFormField(
-                              onChanged: (value) {
-                                setState(() {});
-                                if (value != "") {
-                                  value = '0';
-                                }
-                              },
+                            child: TextField(
                               textAlign: TextAlign.center,
-                              controller: _quantitlyTextController,
-                              key: const ValueKey(10),
-                              style: TextStyle(
-                                color: color,
-                                fontSize: dimensions.getScreenW(18),
-                              ),
+                              controller: _quantityController,
                               keyboardType: TextInputType.number,
                               maxLines: 1,
-                              enabled: true,
+                              decoration: const InputDecoration(
+                                focusedBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide()),
+                              ),
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
-                                  RegExp('[0-9.]'),
-                                )
+                                    RegExp('[0-9]'))
                               ],
+                              onChanged: (value) {
+                                setState(() {
+                                  if (value.isEmpty) {
+                                    _quantityController.text = "1";
+                                  } else {}
+                                });
+                              },
                             ),
                           ),
                         ],

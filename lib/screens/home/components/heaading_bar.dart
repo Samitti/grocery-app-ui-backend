@@ -29,7 +29,7 @@ class HeadingsBar extends StatelessWidget {
           ),
           TextButton(
             onPressed: () {
-              CommonFunction.negivateToPage(context: context, routeName: FeedScreen.routeName);
+              CommonFunction.navigateToPage(context: context, routeName: FeedScreen.routeName);
             },
             child: TextWidget(
               text: 'Browse All',

@@ -20,7 +20,7 @@ class BodyHomeScreen extends StatelessWidget {
           const SwiperImages(),
           TextButton(
             onPressed: () {
-              CommonFunction.negivateToPage(context: context, routeName: OnSaleScreen.routeName);
+              CommonFunction.navigateToPage(context: context, routeName: OnSaleScreen.routeName);
             },
             child: TextWidget(
               text: 'View All',

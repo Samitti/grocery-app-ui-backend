@@ -5,7 +5,7 @@ import 'package:grocery/constants/utils.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
 class CommonFunction {
-  static void negivateToPage(
+  static void navigateToPage(
       {required BuildContext context, required String routeName}) {
     Navigator.pushNamed(context, routeName);
   }

@@ -1,0 +1,138 @@
+import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:grocery/constants/dimension.dart';
+import 'package:grocery/constants/utils.dart';
+import 'package:grocery/screens/cart/components/add_sub_button.dart';
+import 'package:grocery/widgets/text_widget.dart';
+
+class FullCart extends StatelessWidget {
+  const FullCart({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final Color color = Utils(context).color;
+    final AppDimensions dimensions = AppDimensions(context);
+    return GestureDetector(
+      onTap: () {},
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).cardColor,
+                borderRadius: BorderRadius.circular(dimensions.getScreenW(12)),
+              ),
+              child: Row(
+                children: [
+                  Container(
+                    height: dimensions.getScreenH(90),
+                    width: dimensions.getScreenH(90),
+                    decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(dimensions.getScreenW(12))),
+                    child: FancyShimmerImage(
+                      imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+                      boxFit: BoxFit.fill,
+                    ),
+                  ),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: dimensions.getScreenH(10),
+                      ),
+                      TextWidget(
+                        text: 'Title',
+                        color: color,
+                        textSize: dimensions.getScreenW(20),
+                        isTitle: true,
+                      ),
+                      SizedBox(
+                        height: dimensions.getScreenH(16),
+                      ),
+                      const QuantityController()
+                    ],
+                  ),
+                  
+                ],
+              ),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
+
+class QuantityController extends StatefulWidget {
+  const QuantityController({
+    super.key,
+  });
+
+  @override
+  State<QuantityController> createState() => _QuantityControllerState();
+}
+
+class _QuantityControllerState extends State<QuantityController> {
+  final TextEditingController _quantityController = TextEditingController();
+
+  @override
+  void initState() {
+    _quantityController.text = '1';
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _quantityController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final AppDimensions dimensions = AppDimensions(context);
+    return SizedBox(
+      width: dimensions.getScreenW(100),
+      child: Row(
+        children: [
+          AddSubButtons(
+            icon: CupertinoIcons.minus,
+            backColor: Colors.red,
+            press: () {},
+          ),
+          Flexible(
+            flex: 1,
+            child: TextField(
+              textAlign: TextAlign.center,
+              controller: _quantityController,
+              keyboardType: TextInputType.number,
+              maxLines: 1,
+              decoration: const InputDecoration(
+                focusedBorder:
+                    UnderlineInputBorder(borderSide: BorderSide()),
+              ),
+              inputFormatters: [
+                FilteringTextInputFormatter.allow(RegExp('[0-9]'))
+              ],
+              onChanged: (value) {
+                setState(() {
+                  if (value.isEmpty) {
+                    _quantityController.text = "1";
+                  } else {}
+                });
+              },
+            ),
+          ),
+          AddSubButtons(
+            icon: CupertinoIcons.plus,
+            backColor: Colors.green,
+            press: () {},
+          ),
+        ],
+      ),
+    );
+  }
+}
+

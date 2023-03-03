@@ -1,7 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/screens/feed/feed_screen.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
 class HeadingsBar extends StatelessWidget {
@@ -26,7 +28,9 @@ class HeadingsBar extends StatelessWidget {
             maxLines: 1,
           ),
           TextButton(
-            onPressed: () {},
+            onPressed: () {
+              CommonFunction.negivateToPage(context: context, routeName: FeedScreen.routeName);
+            },
             child: TextWidget(
               text: 'Browse All',
               color: Colors.blue,

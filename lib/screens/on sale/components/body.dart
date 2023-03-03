@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
-import 'package:grocery/screens/home/components/on_sale.dart';
+import 'package:grocery/widgets/on_sale_widget.dart';
 
 class BodyOnSaleScreen extends StatelessWidget {
   const BodyOnSaleScreen({super.key});

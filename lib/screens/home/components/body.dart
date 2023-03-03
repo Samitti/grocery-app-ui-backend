@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
-import 'package:grocery/screens/home/components/feed_items.dart';
 import 'package:grocery/screens/home/components/heaading_bar.dart';
-import 'package:grocery/screens/home/components/on_sale.dart';
 import 'package:grocery/screens/home/components/swiper_images.dart';
 import 'package:grocery/screens/on%20sale/on_sale_screen.dart';
+import 'package:grocery/widgets/feed_items_widget.dart';
+import 'package:grocery/widgets/on_sale_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
 class BodyHomeScreen extends StatelessWidget {

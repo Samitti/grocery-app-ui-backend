@@ -4,16 +4,16 @@ import 'package:flutter/services.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/screens/cart/components/add_sub_button.dart';
 
-class QuantityController extends StatefulWidget {
-  const QuantityController({
+class QuantityControllerDetails extends StatefulWidget {
+  const QuantityControllerDetails({
     super.key,
   });
 
   @override
-  State<QuantityController> createState() => _QuantityControllerState();
+  State<QuantityControllerDetails> createState() => _QuantityControllerDetailsState();
 }
 
-class _QuantityControllerState extends State<QuantityController> {
+class _QuantityControllerDetailsState extends State<QuantityControllerDetails> {
   final TextEditingController _quantityController = TextEditingController();
 
   @override

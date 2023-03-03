@@ -4,8 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
-import 'package:grocery/screens/cart/components/quantity_controller.dart';
 import 'package:grocery/widgets/heart_widget.dart';
+import 'package:grocery/screens/cart/components/quantity_controller_cart.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
 class CartItem extends StatelessWidget {
@@ -58,7 +58,7 @@ class CartItem extends StatelessWidget {
                         SizedBox(
                           height: dimensions.getScreenH(16),
                         ),
-                        const QuantityController(),
+                        const QuantityControllerCart(),
                       ],
                     ),
                     const Spacer(),

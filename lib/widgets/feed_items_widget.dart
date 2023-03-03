@@ -1,8 +1,10 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/screens/home/components/price.dart';
 import 'package:grocery/widgets/heart_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
@@ -38,7 +40,9 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
           horizontal: dimensions.getScreenH(15),
           vertical: dimensions.getScreenH(5)),
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          CommonFunction.navigateToPage(context: context, routeName: DetailsScreen.routeName);
+        },
         child: Container(
           decoration: BoxDecoration(
             color: Theme.of(context).cardColor,

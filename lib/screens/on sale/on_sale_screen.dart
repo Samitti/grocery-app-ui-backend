@@ -9,7 +9,7 @@ class OnSaleScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonFunction.appBar(context),
+      appBar: CommonFunction.appBar(context, 'On Sale Products'),
       body: const BodyOnSaleScreen(),
     );
   }

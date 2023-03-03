@@ -9,7 +9,7 @@ class FeedScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonFunction.appBar(context),
+      appBar: CommonFunction.appBar(context, 'All Products'),
       body: const BodyFeedScreen(),
     );
   }

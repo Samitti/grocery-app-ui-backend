@@ -6,11 +6,6 @@ class BodyCartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: 10,
-      itemBuilder: (context, index) {
-        return const FullCart();
-      },
-    );
+    return const FullCart();
   }
 }

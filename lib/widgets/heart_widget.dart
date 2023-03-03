@@ -6,16 +6,17 @@ class HeartWidget extends StatelessWidget {
   const HeartWidget({
     super.key,
     required this.color,
-    required this.size,
+    required this.size, this.press,
   });
 
   final Color color;
   final double size;
+  final void Function()? press;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: press,
       child: Icon(
         IconlyLight.heart,
         color: color,

@@ -8,19 +8,24 @@ class ViewedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const bool isEmpty = true;
     return Scaffold(
-      appBar: CommonFunction.appBar(
-          context: context,
-          text: 'History',
-          isLeading: true,
-          isSuffix: true,
-          suffixPress: () async {
-            await CommonFunction.warningDialog(
-                context: context,
-                text: "Clear History",
-                subTitle: "Are you sure?");
-          }),
-      body: const BodyViewedScreen(),
+      appBar: isEmpty
+          ? null
+          : CommonFunction.appBar(
+              context: context,
+              text: 'History',
+              isLeading: true,
+              isSuffix: true,
+              suffixPress: () async {
+                await CommonFunction.warningDialog(
+                    context: context,
+                    text: "Clear History",
+                    subTitle: "Are you sure?");
+              }),
+      body: const SingleChildScrollView(
+        child:  BodyViewedScreen(),
+      ),
     );
   }
 }

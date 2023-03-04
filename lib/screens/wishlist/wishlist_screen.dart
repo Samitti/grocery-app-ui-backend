@@ -8,21 +8,25 @@ class WishListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const bool isEmpty = true;
     return Scaffold(
-      appBar: CommonFunction.appBar(
-          context: context,
-          text: 'WishList (2)',
-          isSuffix: true,
-          isLeading: true,
-          suffixPress: () async {
-            await CommonFunction.warningDialog(
+      appBar: isEmpty
+          ? null
+          : CommonFunction.appBar(
               context: context,
-              text: 'Empty your wishlist',
-              subTitle: 'Are you sure?',
-              press: () {},
-            );
-          }),
-      body: const BodyWishListScreen(),
+              text: 'WishList (2)',
+              isSuffix: true,
+              isLeading: true,
+              suffixPress: () async {
+                await CommonFunction.warningDialog(
+                  context: context,
+                  text: 'Empty your wishlist',
+                  subTitle: 'Are you sure?',
+                  press: () {},
+                );
+              },
+            ),
+      body: const SingleChildScrollView(child: BodyWishListScreen()),
     );
   }
 }

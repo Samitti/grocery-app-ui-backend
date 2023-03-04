@@ -8,9 +8,12 @@ class OrderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+        const bool isEmpty = true;
     return Scaffold(
-      appBar: CommonFunction.appBar(context: context, text: 'Orders', isLeading: true),
-      body: const BodyOrderScreen(),
+      appBar: isEmpty
+          ? null
+          : CommonFunction.appBar(context: context, text: 'Orders', isLeading: true),
+      body: const SingleChildScrollView(child: BodyOrderScreen()),
     );
   }
 }

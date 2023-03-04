@@ -10,7 +10,8 @@ class QuantityControllerDetails extends StatefulWidget {
   });
 
   @override
-  State<QuantityControllerDetails> createState() => _QuantityControllerDetailsState();
+  State<QuantityControllerDetails> createState() =>
+      _QuantityControllerDetailsState();
 }
 
 class _QuantityControllerDetailsState extends State<QuantityControllerDetails> {
@@ -38,7 +39,16 @@ class _QuantityControllerDetailsState extends State<QuantityControllerDetails> {
           AddSubButtons(
             icon: CupertinoIcons.minus,
             backColor: Colors.red,
-            press: () {},
+            press: () {
+              if (_quantityController.text == "1") {
+                return;
+              } else {
+                setState(() {
+                  _quantityController.text =
+                      (int.parse(_quantityController.text) - 1).toString();
+                });
+              }
+            },
           ),
           Flexible(
             flex: 1,
@@ -48,8 +58,7 @@ class _QuantityControllerDetailsState extends State<QuantityControllerDetails> {
               keyboardType: TextInputType.number,
               maxLines: 1,
               decoration: const InputDecoration(
-                focusedBorder:
-                    UnderlineInputBorder(borderSide: BorderSide()),
+                focusedBorder: UnderlineInputBorder(borderSide: BorderSide()),
               ),
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp('[0-9]'))
@@ -66,11 +75,15 @@ class _QuantityControllerDetailsState extends State<QuantityControllerDetails> {
           AddSubButtons(
             icon: CupertinoIcons.plus,
             backColor: Colors.green,
-            press: () {},
+            press: () {
+              setState(() {
+                _quantityController.text =
+                    (int.parse(_quantityController.text) + 1).toString();
+              });
+            },
           ),
         ],
       ),
     );
   }
 }
-

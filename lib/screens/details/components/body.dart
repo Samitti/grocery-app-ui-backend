@@ -1,7 +1,6 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/dimension.dart';
-import 'package:grocery/constants/utils.dart';
 import 'package:grocery/screens/details/components/upper_container.dart';
 
 class BodyDetailsScreen extends StatelessWidget {
@@ -10,7 +9,6 @@ class BodyDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppDimensions dimensions = AppDimensions(context);
-    final Color color = Utils(context).color;
     return Column(
       children: [
         Flexible(

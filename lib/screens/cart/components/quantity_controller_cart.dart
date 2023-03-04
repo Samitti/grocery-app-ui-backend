@@ -38,7 +38,16 @@ class _QuantityControllerCartState extends State<QuantityControllerCart> {
           AddSubButtons(
             icon: CupertinoIcons.minus,
             backColor: Colors.red,
-            press: () {},
+            press: () {
+              if (_quantityController.text == "1") {
+                return;
+              } else {
+                setState(() {
+                  _quantityController.text =
+                      (int.parse(_quantityController.text) - 1).toString();
+                });
+              }
+            },
           ),
           Flexible(
             flex: 1,
@@ -48,8 +57,7 @@ class _QuantityControllerCartState extends State<QuantityControllerCart> {
               keyboardType: TextInputType.number,
               maxLines: 1,
               decoration: const InputDecoration(
-                focusedBorder:
-                    UnderlineInputBorder(borderSide: BorderSide()),
+                focusedBorder: UnderlineInputBorder(borderSide: BorderSide()),
               ),
               inputFormatters: [
                 FilteringTextInputFormatter.allow(RegExp('[0-9]'))
@@ -66,11 +74,15 @@ class _QuantityControllerCartState extends State<QuantityControllerCart> {
           AddSubButtons(
             icon: CupertinoIcons.plus,
             backColor: Colors.green,
-            press: () {},
+            press: () {
+              setState(() {
+                _quantityController.text =
+                    (int.parse(_quantityController.text) + 1).toString();
+              });
+            },
           ),
         ],
       ),
     );
   }
 }
-

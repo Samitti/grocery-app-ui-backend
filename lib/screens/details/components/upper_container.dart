@@ -35,8 +35,8 @@ class UpperContainer extends StatelessWidget {
             height: dimensions.getScreenH(20),
           ),
           Padding(
-            padding: EdgeInsets.symmetric(
-                horizontal: dimensions.getScreenW(20)),
+            padding:
+                EdgeInsets.symmetric(horizontal: dimensions.getScreenW(20)),
             child: Row(
               children: [
                 TextWidget(
@@ -58,16 +58,34 @@ class UpperContainer extends StatelessWidget {
             width: double.infinity,
             height: dimensions.getScreenH(100),
             child: Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: dimensions.getScreenW(20)),
+              padding:
+                  EdgeInsets.symmetric(horizontal: dimensions.getScreenW(20)),
               child: Row(
                 children: [
-                  FittedBox(
-                    child: TextWidget(
-                      text: 'Total: \$0.334',
-                      color: color,
-                      textSize: dimensions.getScreenW(20),
-                      isTitle: true,
+                  TextWidget(
+                    text: '\$2.59',
+                    color: Colors.green,
+                    textSize: dimensions.getScreenW(25),
+                    isTitle: true,
+                  ),
+                  TextWidget(
+                    text: '/Kg',
+                    color: color,
+                    textSize: dimensions.getScreenW(15),
+                    isTitle: false,
+                  ),
+                  SizedBox(
+                    width: dimensions.getScreenW(10),
+                  ),
+                  Visibility(
+                    visible: true,
+                    child: Text(
+                      '\$3.9',
+                      style: TextStyle(
+                        fontSize: dimensions.getScreenW(20),
+                        color: color,
+                        decoration: TextDecoration.lineThrough,
+                      ),
                     ),
                   ),
                   const Spacer(),

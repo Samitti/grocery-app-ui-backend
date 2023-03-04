@@ -2,20 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
+import 'package:grocery/screens/order/order_screen.dart';
 import 'package:grocery/screens/wishlist/wishlist_screen.dart';
 import 'package:grocery/widgets/theme_button.dart';
 import 'package:grocery/screens/user/components/list_tile_profile.dart';
 
-class Titles extends StatefulWidget {
-  const Titles({
+class TilesUser extends StatefulWidget {
+  const TilesUser({
     super.key,
   });
 
   @override
-  State<Titles> createState() => _TitlesState();
+  State<TilesUser> createState() => _TilesUserState();
 }
 
-class _TitlesState extends State<Titles> {
+class _TilesUserState extends State<TilesUser> {
   final TextEditingController textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -34,7 +35,9 @@ class _TitlesState extends State<Titles> {
         ListTileProfile(
           leading: const Icon(IconlyLight.bag),
           title: "Order",
-          press: () {},
+          press: () {
+            CommonFunction.navigateToPage(context: context, routeName: OrderScreen.routeName);
+          },
         ),
         SizedBox(height: dimensions.getScreenH(5)),
         ListTileProfile(

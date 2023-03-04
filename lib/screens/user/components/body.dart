@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
-import 'package:grocery/screens/user/components/tiles.dart';
+import 'package:grocery/screens/user/components/tiles_user.dart';
 import 'package:provider/provider.dart';
 
 class BodyUserScreen extends StatelessWidget {
@@ -29,7 +29,7 @@ class BodyUserScreen extends StatelessWidget {
                 color: Colors.black,
               ),
               SizedBox(height: dimensions.getScreenH(20)),
-              const Titles(),
+              const TilesUser(),
             ],
           ),
         ),

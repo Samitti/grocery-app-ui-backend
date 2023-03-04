@@ -53,7 +53,7 @@ class CommonFunction {
   }
 
   
-  static Future<void> warningDialog({required BuildContext context, required String imgPath, required String text, void Function()? press, required String subTitle}) async {
+  static Future<void> warningDialog({required BuildContext context, required String text, void Function()? press, required String subTitle}) async {
     return showDialog(
       context: context,
       builder: (context) {
@@ -61,7 +61,7 @@ class CommonFunction {
           title: Row(
             children: [
               Image.asset(
-               imgPath,
+               "assets/images/warning-sign.png",
                 height: AppDimensions(context).getScreenH(30),
                 width: AppDimensions(context).getScreenH(30),
                 fit: BoxFit.fill,

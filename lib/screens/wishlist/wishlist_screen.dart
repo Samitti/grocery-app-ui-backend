@@ -13,10 +13,10 @@ class WishListScreen extends StatelessWidget {
           context: context,
           text: 'WishList (2)',
           isSuffix: true,
+          isLeading: true,
           suffixPress: () async {
             await CommonFunction.warningDialog(
               context: context,
-              imgPath: "assets/images/warning-sign.png",
               text: 'Empty your wishlist',
               subTitle: 'Are you sure?',
               press: () {},

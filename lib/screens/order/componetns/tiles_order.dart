@@ -27,13 +27,13 @@ class TilesOrders extends StatelessWidget {
               borderRadius: BorderRadius.circular(dimensions.getScreenW(12))),
           child: FancyShimmerImage(
             imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-            width: dimensions.getScreenH(80),
+            width: dimensions.getScreenH(70),
+            height: dimensions.getScreenH(100),
             boxFit: BoxFit.fill,
           ),
         ),
         title: TextWidget(text: 'Title x 12', color: color, textSize: dimensions.getScreenW(20), isTitle: true,),
         trailing: TextWidget(text: '03/12/2023', color: color, textSize: dimensions.getScreenW(18)),
-    
       ),
     );
   }

@@ -3,6 +3,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/screens/order/order_screen.dart';
+import 'package:grocery/screens/viewed/viewed_screen.dart';
 import 'package:grocery/screens/wishlist/wishlist_screen.dart';
 import 'package:grocery/widgets/theme_button.dart';
 import 'package:grocery/screens/user/components/list_tile_profile.dart';
@@ -52,7 +53,9 @@ class _TilesUserState extends State<TilesUser> {
         ListTileProfile(
           leading: const Icon(IconlyLight.show),
           title: "Viewed",
-          press: () {},
+          press: () {
+            CommonFunction.navigateToPage(context: context, routeName: ViewedScreen.routeName);
+          },
         ),
         SizedBox(height: dimensions.getScreenH(5)),
         ListTileProfile(
@@ -68,7 +71,6 @@ class _TilesUserState extends State<TilesUser> {
           press: () async {
             return await CommonFunction.warningDialog(
               context: context,
-              imgPath: "assets/images/warning-sign.png",
               text: 'Sign Out',
               subTitle: 'Are you sure?',
               press: () {},

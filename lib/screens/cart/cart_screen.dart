@@ -17,7 +17,6 @@ class CartScreen extends StatelessWidget {
           suffixPress: () async {
             await CommonFunction.warningDialog(
               context: context,
-              imgPath: "assets/images/warning-sign.png",
               text: 'Empty your cart',
               subTitle: 'Are you sure?',
               press: () {},

@@ -41,7 +41,8 @@ class _TitlesState extends State<Titles> {
           leading: const Icon(IconlyLight.heart),
           title: "Wishlist",
           press: () {
-            CommonFunction.navigateToPage(context: context, routeName: WishListScreen.routeName);
+            CommonFunction.navigateToPage(
+                context: context, routeName: WishListScreen.routeName);
           },
         ),
         SizedBox(height: dimensions.getScreenH(5)),
@@ -62,52 +63,17 @@ class _TitlesState extends State<Titles> {
           leading: const Icon(IconlyLight.logout),
           title: "Logout",
           press: () async {
-            return await logoutDialog(context);
+            return await CommonFunction.warningDialog(
+              context: context,
+              imgPath: "assets/images/warning-sign.png",
+              text: 'Sign Out',
+              subTitle: 'Are you sure?',
+              press: () {},
+            );
           },
         ),
       ],
     );
-  }
-
-  Future<void> logoutDialog(BuildContext context) {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: Row(
-              children: [
-                Image.asset(
-                  "assets/images/warning-sign.png",
-                  height: AppDimensions(context).getScreenH(30),
-                  width: AppDimensions(context).getScreenH(30),
-                  fit: BoxFit.fill,
-                ),
-                SizedBox(
-                  width: AppDimensions(context).getScreenW(20),
-                ),
-                const Text("Sign Out")
-              ],
-            ),
-            content: Text("Are you sure?" , style: TextStyle(fontSize: AppDimensions(context).getScreenW(18)),),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  if (Navigator.canPop(context)) {
-                    Navigator.pop(context);
-                  }
-                },
-                child: Text("Cancel" , style: TextStyle(fontSize: AppDimensions(context).getScreenW(18)),),
-              ),
-              TextButton(
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-                style: TextButton.styleFrom(foregroundColor: Colors.red),
-                child: Text("Yes", style: TextStyle(fontSize: AppDimensions(context).getScreenW(18)),),
-              )
-            ],
-          );
-        });
   }
 
   Future<void> addressDialog(BuildContext context) {

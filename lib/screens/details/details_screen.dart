@@ -9,7 +9,7 @@ class DetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CommonFunction.appBar(context, ''),
+      appBar: CommonFunction.appBar(context: context, text: '', isLeading: true),
       body: const BodyDetailsScreen(),
     );
   }

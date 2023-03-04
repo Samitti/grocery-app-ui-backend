@@ -10,12 +10,18 @@ class CommonFunction {
     Navigator.pushNamed(context, routeName);
   }
 
-  static AppBar appBar(BuildContext context, String text){
+  static AppBar appBar({
+    required BuildContext context,
+    required String text,
+    bool isLeading = false,
+    bool isSuffix = false,
+    void Function()? suffixPress,
+  }) {
     final Color color = Utils(context).color;
     final AppDimensions dimensions = AppDimensions(context);
     return AppBar(
       centerTitle: true,
-      leading: IconButton(
+      leading: isLeading ? IconButton(
         style: IconButton.styleFrom(
             shape: RoundedRectangleBorder(
                 borderRadius:
@@ -25,7 +31,7 @@ class CommonFunction {
           Navigator.canPop(context) ? Navigator.pop(context) : null;
         },
         icon: const Icon(IconlyLight.arrowLeft2),
-      ),
+      ) : null,
       elevation: 0,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       title: TextWidget(
@@ -34,6 +40,67 @@ class CommonFunction {
         textSize: dimensions.getScreenW(22),
         isTitle: true,
       ),
+      actions: isSuffix ? [
+        IconButton(
+          onPressed: suffixPress,
+          icon: Icon(
+            IconlyBroken.delete,
+            color: color,
+          ),
+        )
+      ]: null,
+    );
+  }
+
+  
+  static Future<void> warningDialog({required BuildContext context, required String imgPath, required String text, void Function()? press, required String subTitle}) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Image.asset(
+               imgPath,
+                height: AppDimensions(context).getScreenH(30),
+                width: AppDimensions(context).getScreenH(30),
+                fit: BoxFit.fill,
+              ),
+              SizedBox(
+                width: AppDimensions(context).getScreenW(20),
+              ),
+              Text(text),
+            ],
+          ),
+          content: Text(
+            subTitle,
+            style: TextStyle(fontSize: AppDimensions(context).getScreenW(18)),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
+              },
+              child: Text(
+                "Cancel",
+                style:
+                    TextStyle(fontSize: AppDimensions(context).getScreenW(18)),
+              ),
+            ),
+            TextButton(
+              onPressed: press,
+              style: TextButton.styleFrom(foregroundColor: Colors.red),
+              child: Text(
+                "Yes",
+                style:
+                    TextStyle(fontSize: AppDimensions(context).getScreenW(18)),
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }

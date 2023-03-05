@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/screens/forget/forget_password_screen.dart';
 import 'package:grocery/screens/signin/component/text_fields_signin.dart';
 import 'package:grocery/screens/signup/signup_screen.dart';
 import 'package:grocery/widgets/button_widget.dart';
@@ -49,7 +50,9 @@ class BodySignInScreen extends StatelessWidget {
           Align(
             alignment: Alignment.topRight,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                CommonFunction.navigateToPage(context: context, routeName: ForgetPasswordScreen.routeName);
+              },
               child: Text(
                 'Forget Password?',
                 maxLines: 1,
@@ -108,7 +111,6 @@ class BodySignInScreen extends StatelessWidget {
           ),
           ButtonWidget(
             buttonText: 'Continue as Guest',
-            primayColor: Colors.amber,
             press: () {},
             isIcon: false,
           ),

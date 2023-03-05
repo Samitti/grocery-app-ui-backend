@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/screens/forget/forget_password_screen.dart';
 import 'package:grocery/screens/signin/signin_screen.dart';
 import 'package:grocery/screens/signup/component/text_fields_signup.dart';
 import 'package:grocery/widgets/button_widget.dart';
@@ -49,7 +50,11 @@ class BodySignUpScreen extends StatelessWidget {
           Align(
             alignment: Alignment.topRight,
             child: TextButton(
-              onPressed: () {},
+              onPressed: () {
+                CommonFunction.navigateToPage(
+                    context: context,
+                    routeName: ForgetPasswordScreen.routeName);
+              },
               child: Text(
                 'Forget Password?',
                 maxLines: 1,

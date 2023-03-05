@@ -5,14 +5,12 @@ import 'package:grocery/widgets/text_widget.dart';
 class ButtonWidget extends StatelessWidget {
   final void Function()? press;
   final String? buttonText;
-  final Color primayColor;
   final bool isIcon;
 
   const ButtonWidget({
     super.key,
     required this.press,
     this.buttonText,
-    this.primayColor = Colors.white38,
     this.isIcon = false,
   });
 
@@ -23,13 +21,13 @@ class ButtonWidget extends StatelessWidget {
       width: double.infinity,
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(
-          backgroundColor: primayColor,
+          backgroundColor: Colors.amber,
         ),
         onPressed: press,
         child: isIcon
             ? SizedBox(
-                height: 30,
-                width: 30,
+                height: dimensions.getScreenW(30),
+                width: dimensions.getScreenW(30),
                 child: Image.asset("assets/images/google.png"),
               ):  
             TextWidget(

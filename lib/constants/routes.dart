@@ -8,6 +8,7 @@ import 'package:grocery/screens/home/home_screen.dart';
 import 'package:grocery/screens/on%20sale/on_sale_screen.dart';
 import 'package:grocery/screens/order/order_screen.dart';
 import 'package:grocery/screens/signin/signin_screen.dart';
+import 'package:grocery/screens/signup/signup_screen.dart';
 import 'package:grocery/screens/user/user_profile_screen.dart';
 import 'package:grocery/screens/viewed/viewed_screen.dart';
 import 'package:grocery/screens/wishlist/wishlist_screen.dart';
@@ -25,4 +26,5 @@ final Map<String, WidgetBuilder> routes = {
   OrderScreen.routeName : (context) => const OrderScreen(),
   ViewedScreen.routeName : (context) => const ViewedScreen(),
   SignInScreen.routeName : (context) => const SignInScreen(),
+  SignUpScreen.routeName : (context) => const SignUpScreen(),
 };

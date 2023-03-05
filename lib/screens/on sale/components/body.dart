@@ -11,7 +11,7 @@ class BodyOnSaleScreen extends StatelessWidget {
     if (isSaleEmpty) {
       return const SafeArea(child: EmptyOnSale());
     } else {
-      return SafeArea(child: const FullOnSale());
+      return const SafeArea(child: FullOnSale());
     }
   }
 }

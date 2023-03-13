@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
+import 'package:grocery/constants/utils.dart';
 import 'package:grocery/screens/home/components/heaading_bar.dart';
 import 'package:grocery/screens/home/components/swiper_images.dart';
 import 'package:grocery/screens/on%20sale/on_sale_screen.dart';
@@ -20,7 +21,8 @@ class BodyHomeScreen extends StatelessWidget {
           const SwiperImages(),
           TextButton(
             onPressed: () {
-              CommonFunction.navigateToPage(context: context, routeName: OnSaleScreen.routeName);
+              CommonFunction.navigateToPage(
+                  context: context, routeName: OnSaleScreen.routeName);
             },
             child: TextWidget(
               text: 'View All',
@@ -49,9 +51,12 @@ class BodyHomeScreen extends StatelessWidget {
             shrinkWrap: true,
             crossAxisCount: 2,
             children: List.generate(
-              4,
+              Utils.products.length < 4 ? Utils.products.length : 4,
               (index) {
-                return const FeedsWidgets();
+                return FeedsWidgets(
+                  imageUrl: Utils.products[index].productImageUrl,
+                  title: Utils.products[index].productTitle,
+                );
               },
             ),
           ),

@@ -10,7 +10,9 @@ import 'package:grocery/widgets/heart_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
 class FeedsWidgets extends StatefulWidget {
-  const FeedsWidgets({super.key});
+  final String imageUrl, title;
+
+  const FeedsWidgets({super.key, required this.imageUrl, required this.title});
 
   @override
   State<FeedsWidgets> createState() => _FeedsWidgetsState();
@@ -41,7 +43,8 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
           vertical: dimensions.getScreenH(5)),
       child: InkWell(
         onTap: () {
-          CommonFunction.navigateToPage(context: context, routeName: DetailsScreen.routeName);
+          CommonFunction.navigateToPage(
+              context: context, routeName: DetailsScreen.routeName);
         },
         child: Container(
           decoration: BoxDecoration(
@@ -51,7 +54,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
           child: Column(
             children: [
               FancyShimmerImage(
-                imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+                imageUrl: widget.imageUrl,
                 height: dimensions.getScreenH(75),
                 width: dimensions.getScreenH(75),
                 boxFit: BoxFit.fill,
@@ -64,13 +67,19 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    TextWidget(
-                      text: 'Title',
-                      color: color,
-                      textSize: dimensions.getScreenW(20),
-                      isTitle: true,
+                    Flexible(
+                      flex: 3,
+                      child: TextWidget(
+                        text: widget.title,
+                        color: color,
+                        maxLines: 1,
+                        textSize: dimensions.getScreenW(18),
+                        isTitle: true,
+                      ),
                     ),
-                    HeartWidget(color: color, size: dimensions.getScreenW(22)),
+                    Flexible(
+                      flex: 1,
+                      child: HeartWidget(color: color, size: dimensions.getScreenW(22))),
                   ],
                 ),
               ),

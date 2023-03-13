@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:grocery/constants/routes.dart';
 import 'package:grocery/constants/theme_data.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
+import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/screens/home/home_screen.dart';
 import 'package:provider/provider.dart';
 
@@ -25,7 +26,10 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => darkThemeProvider)],
+      providers: [
+        ChangeNotifierProvider(create: (_) => darkThemeProvider),
+        ChangeNotifierProvider(create: (_) => productProvider)
+        ],
       child: Consumer<DarkThemeProvider>(
           builder: (context, darkThemeProvider, child) {
         return MaterialApp(
@@ -40,6 +44,7 @@ class _MyAppState extends State<MyApp> {
   }
 
   DarkThemeProvider darkThemeProvider = DarkThemeProvider();
+  ProductProvider productProvider = ProductProvider();
 
   void getCurrentAppTheme() async {
     darkThemeProvider.setDarkTheme =

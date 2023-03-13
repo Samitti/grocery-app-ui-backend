@@ -2,12 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/models/product_model.dart';
+import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/screens/home/components/heaading_bar.dart';
 import 'package:grocery/screens/home/components/swiper_images.dart';
 import 'package:grocery/screens/on%20sale/on_sale_screen.dart';
 import 'package:grocery/widgets/feed_items_widget.dart';
 import 'package:grocery/widgets/on_sale_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 class BodyHomeScreen extends StatelessWidget {
   const BodyHomeScreen({super.key});
@@ -15,6 +18,8 @@ class BodyHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppDimensions dimensions = AppDimensions(context);
+        final productProvider = Provider.of<ProductProvider>(context);
+    List<ProductModel> allProducts = productProvider.getProducts;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -51,11 +56,11 @@ class BodyHomeScreen extends StatelessWidget {
             shrinkWrap: true,
             crossAxisCount: 2,
             children: List.generate(
-              Utils.products.length < 4 ? Utils.products.length : 4,
+              allProducts.length < 4 ? allProducts.length : 4,
               (index) {
                 return FeedsWidgets(
-                  imageUrl: Utils.products[index].productImageUrl,
-                  title: Utils.products[index].productTitle,
+                  imageUrl: allProducts[index].productImageUrl,
+                  title: allProducts[index].productTitle,
                 );
               },
             ),

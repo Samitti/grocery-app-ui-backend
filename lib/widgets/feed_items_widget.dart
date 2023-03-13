@@ -73,7 +73,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                         text: widget.title,
                         color: color,
                         maxLines: 1,
-                        textSize: dimensions.getScreenW(18),
+                        textSize: dimensions.getScreenW(20),
                         isTitle: true,
                       ),
                     ),

@@ -6,6 +6,10 @@ class ProductProvider with ChangeNotifier {
     return _products;
   }
 
+  List<ProductModel> get onSale {
+    return _products.where((element) => element.productIsOnSale).toList();
+  }
+
   static final List<ProductModel> _products = [
     ProductModel(
       productid: 'Apricot',

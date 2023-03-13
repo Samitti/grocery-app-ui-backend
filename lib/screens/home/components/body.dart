@@ -19,6 +19,7 @@ class BodyHomeScreen extends StatelessWidget {
     final AppDimensions dimensions = AppDimensions(context);
     final productProvider = Provider.of<ProductProvider>(context);
     List<ProductModel> allProducts = productProvider.getProducts;
+    List<ProductModel> onSaleProducts = productProvider.onSale;
     return SingleChildScrollView(
       child: Column(
         children: [
@@ -38,10 +39,13 @@ class BodyHomeScreen extends StatelessWidget {
           SizedBox(
             height: dimensions.getScreenH(200),
             child: ListView.builder(
-              itemCount: 10,
+              itemCount: onSaleProducts.length < 4 ? onSaleProducts.length : 4,
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return const OnSaleWidget();
+                return ChangeNotifierProvider.value(
+                  value: onSaleProducts[index],
+                  child: const OnSaleWidget(),
+                );
               },
             ),
           ),

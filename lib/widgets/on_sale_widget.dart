@@ -4,10 +4,12 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/models/product_model.dart';
 import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/screens/home/components/price.dart';
 import 'package:grocery/widgets/heart_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 class OnSaleWidget extends StatelessWidget {
   const OnSaleWidget({super.key});
@@ -16,6 +18,7 @@ class OnSaleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     final AppDimensions dimensions = AppDimensions(context);
+    final productModel = Provider.of<ProductModel>(context);
     return Padding(
       padding: EdgeInsets.all(dimensions.getScreenW(10)),
       child: InkWell(
@@ -36,16 +39,16 @@ class OnSaleWidget extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   FancyShimmerImage(
-                    imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-                    height: dimensions.getScreenH(90),
-                    width: dimensions.getScreenH(90),
+                    imageUrl: productModel.productImageUrl,
+                    height: dimensions.getScreenH(85),
+                    width: dimensions.getScreenH(85),
                     boxFit: BoxFit.fill,
                   ),
                   Column(
                     children: [
                       TextWidget(
                         color: color,
-                        text: '1 KG',
+                        text: productModel.productIsPiece ? '1 Piece' : '1 KG',
                         textSize: dimensions.getScreenW(20),
                         isTitle: true,
                       ),
@@ -70,18 +73,19 @@ class OnSaleWidget extends StatelessWidget {
                   )
                 ],
               ),
-              const PriceWidget(
-                isOnSale: true,
-                salePrice: 2.99,
-                price: 5.0,
+              PriceWidget(
+                isOnSale: productModel.productIsOnSale,
+                salePrice: productModel.productSalePrice,
+                price: productModel.productPrice,
                 textPrice: '1',
               ),
               SizedBox(
                 height: dimensions.getScreenH(5),
               ),
               TextWidget(
-                text: 'Title',
+                text: productModel.productTitle,
                 color: color,
+                maxLines: 1,
                 textSize: dimensions.getScreenW(20),
                 isTitle: true,
               ),

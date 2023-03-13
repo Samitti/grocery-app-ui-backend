@@ -22,7 +22,7 @@ class PriceWidget extends StatelessWidget {
           isTitle: true,
         ),
         SizedBox(
-          width: AppDimensions(context).getScreenW(10),
+          width: AppDimensions(context).getScreenW(8),
         ),
         Visibility(
           visible: isOnSale ? true : false,

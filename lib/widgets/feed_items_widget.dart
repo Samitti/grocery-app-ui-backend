@@ -86,30 +86,30 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
               ),
               Padding(
                 padding:
-                    EdgeInsets.symmetric(horizontal: dimensions.getScreenW(10)),
+                    EdgeInsets.symmetric(horizontal: dimensions.getScreenW(5)),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     PriceWidget(
-                      isOnSale: false,
-                      salePrice: 2.99,
-                      price: 5.0,
+                      isOnSale: productModel.productIsOnSale,
+                      salePrice: productModel.productSalePrice,
+                      price: productModel.productPrice,
                       textPrice: _quantityController.text,
                     ),
                     Flexible(
                       child: Row(
                         children: [
                           SizedBox(
-                            width: dimensions.getScreenW(8),
+                            width: dimensions.getScreenW(3),
                           ),
                           TextWidget(
-                            text: 'KG',
+                            text: productModel.productIsPiece ? 'Piece' :'KG',
                             color: color,
                             textSize: dimensions.getScreenW(18),
                             isTitle: true,
                           ),
                           SizedBox(
-                            width: dimensions.getScreenW(25),
+                            width: dimensions.getScreenW(5),
                           ),
                           Flexible(
                             child: TextField(

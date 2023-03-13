@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
-import 'package:grocery/constants/utils.dart';
 import 'package:grocery/models/product_model.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/screens/home/components/heaading_bar.dart';
@@ -18,7 +17,7 @@ class BodyHomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppDimensions dimensions = AppDimensions(context);
-        final productProvider = Provider.of<ProductProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
     List<ProductModel> allProducts = productProvider.getProducts;
     return SingleChildScrollView(
       child: Column(
@@ -58,9 +57,9 @@ class BodyHomeScreen extends StatelessWidget {
             children: List.generate(
               allProducts.length < 4 ? allProducts.length : 4,
               (index) {
-                return FeedsWidgets(
-                  imageUrl: allProducts[index].productImageUrl,
-                  title: allProducts[index].productTitle,
+                return ChangeNotifierProvider.value(
+                  value: allProducts[index],
+                  child: const FeedsWidgets(),
                 );
               },
             ),

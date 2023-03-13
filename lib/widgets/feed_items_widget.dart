@@ -4,15 +4,15 @@ import 'package:flutter/services.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/models/product_model.dart';
 import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/screens/home/components/price.dart';
 import 'package:grocery/widgets/heart_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 class FeedsWidgets extends StatefulWidget {
-  final String imageUrl, title;
-
-  const FeedsWidgets({super.key, required this.imageUrl, required this.title});
+  const FeedsWidgets({super.key});
 
   @override
   State<FeedsWidgets> createState() => _FeedsWidgetsState();
@@ -37,6 +37,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
   Widget build(BuildContext context) {
     final AppDimensions dimensions = AppDimensions(context);
     final Color color = Utils(context).color;
+    final productModel = Provider.of<ProductModel>(context);
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: dimensions.getScreenH(15),
@@ -54,7 +55,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
           child: Column(
             children: [
               FancyShimmerImage(
-                imageUrl: widget.imageUrl,
+                imageUrl: productModel.productImageUrl,
                 height: dimensions.getScreenH(75),
                 width: dimensions.getScreenH(75),
                 boxFit: BoxFit.fill,
@@ -70,7 +71,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                     Flexible(
                       flex: 3,
                       child: TextWidget(
-                        text: widget.title,
+                        text: productModel.productTitle,
                         color: color,
                         maxLines: 1,
                         textSize: dimensions.getScreenW(20),

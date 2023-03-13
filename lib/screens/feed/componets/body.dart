@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:grocery/constants/utils.dart';
 import 'package:grocery/models/product_model.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/screens/feed/componets/search_text_feild.dart';
@@ -11,7 +10,7 @@ class BodyFeedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-            final productProvider = Provider.of<ProductProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
     List<ProductModel> allProducts = productProvider.getProducts;
     return SingleChildScrollView(
       child: Column(
@@ -25,7 +24,10 @@ class BodyFeedScreen extends StatelessWidget {
             children: List.generate(
               allProducts.length,
               (index) {
-                return FeedsWidgets(imageUrl: allProducts[index].productImageUrl, title: allProducts[index].productTitle,);
+                return ChangeNotifierProvider.value(
+                  value: allProducts[index],
+                  child: const FeedsWidgets(),
+                );
               },
             ),
           ),

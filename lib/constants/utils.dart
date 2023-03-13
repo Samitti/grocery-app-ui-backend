@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:grocery/models/product_model.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
 import 'package:provider/provider.dart';
 

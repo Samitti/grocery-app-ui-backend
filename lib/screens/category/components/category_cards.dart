@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
-import 'package:grocery/screens/category/components/catergory_list.dart';
+import 'package:grocery/screens/category%20list/category_list_screen.dart';
 import 'package:provider/provider.dart';
 
 class CategoryCards extends StatelessWidget {
@@ -24,7 +24,7 @@ class CategoryCards extends StatelessWidget {
       onTap: () {
         Navigator.pushNamed(
           context,
-          CategoryList.routeName,
+          CategoryListScreen.routeName,
           arguments: categoryText,
         );
       },

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
 import 'package:grocery/screens/cart/cart_screen.dart';
 import 'package:grocery/screens/category/categories_screen.dart';
+import 'package:grocery/screens/category/components/catergory_list.dart';
 import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/screens/feed/feed_screen.dart';
 import 'package:grocery/screens/forget/forget_password_screen.dart';
@@ -29,5 +30,6 @@ final Map<String, WidgetBuilder> routes = {
   SignInScreen.routeName : (context) => const SignInScreen(),
   SignUpScreen.routeName : (context) => const SignUpScreen(),
   ForgetPasswordScreen.routeName : (context) => const ForgetPasswordScreen(),
+  CategoryList.routeName : (context) => const CategoryList(),
 
 };

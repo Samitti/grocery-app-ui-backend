@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
+import 'package:grocery/screens/category/components/catergory_list.dart';
 import 'package:provider/provider.dart';
 
 class CategoryCards extends StatelessWidget {
@@ -20,7 +21,13 @@ class CategoryCards extends StatelessWidget {
     final Color color = themeState.getDarkTheme ? Colors.white : Colors.black;
     final AppDimensions dimensions = AppDimensions(context);
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          CategoryList.routeName,
+          arguments: categoryText,
+        );
+      },
       child: Container(
         height: dimensions.getScreenW(180),
         width: dimensions.getScreenW(180),

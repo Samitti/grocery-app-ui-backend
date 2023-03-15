@@ -27,7 +27,6 @@ class _TextFieldSigninState extends State<TextFieldSignin> {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
     if(isValid){
-      print("The form is valid");
     }
   }
 

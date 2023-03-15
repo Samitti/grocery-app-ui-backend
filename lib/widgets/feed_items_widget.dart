@@ -1,7 +1,6 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/models/product_model.dart';
@@ -44,8 +43,11 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
           vertical: dimensions.getScreenH(5)),
       child: InkWell(
         onTap: () {
-          CommonFunction.navigateToPage(
-              context: context, routeName: DetailsScreen.routeName);
+          Navigator.pushNamed(
+            context,
+            DetailsScreen.routeName,
+            arguments: productModel.productid,
+          );
         },
         child: Container(
           decoration: BoxDecoration(
@@ -79,8 +81,9 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                       ),
                     ),
                     Flexible(
-                      flex: 1,
-                      child: HeartWidget(color: color, size: dimensions.getScreenW(22))),
+                        flex: 1,
+                        child: HeartWidget(
+                            color: color, size: dimensions.getScreenW(22))),
                   ],
                 ),
               ),
@@ -103,7 +106,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                             width: dimensions.getScreenW(3),
                           ),
                           TextWidget(
-                            text: productModel.productIsPiece ? 'Piece' :'KG',
+                            text: productModel.productIsPiece ? 'Piece' : 'KG',
                             color: color,
                             textSize: dimensions.getScreenW(18),
                             isTitle: true,

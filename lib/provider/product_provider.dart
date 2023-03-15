@@ -10,6 +10,10 @@ class ProductProvider with ChangeNotifier {
     return _products.where((element) => element.productIsOnSale).toList();
   }
 
+  ProductModel findById(String productid) {
+    return _products.firstWhere((element) => element.productid == productid);
+  }
+
   static final List<ProductModel> _products = [
     ProductModel(
       productid: 'Apricot',

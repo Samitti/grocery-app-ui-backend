@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery/models/product_model.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/screens/feed/componets/search_text_feild.dart';
+import 'package:grocery/widgets/empty_widget.dart';
 import 'package:grocery/widgets/feed_items_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -15,7 +16,7 @@ class BodyCategoryListScreen extends StatelessWidget {
         ModalRoute.of(context)!.settings.arguments as String;
     List<ProductModel> productByCategory =
         productProvider.findByCategory(productCategory);
-    return SingleChildScrollView(
+    return productByCategory.isEmpty? const EmptyWidget() : SingleChildScrollView(
       child: Column(
         children: [
           const SearchTextFeild(),

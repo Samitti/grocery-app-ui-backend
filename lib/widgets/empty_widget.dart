@@ -2,11 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
 
-class EmptyOnSale extends StatelessWidget {
-  const EmptyOnSale({super.key});
+class EmptyWidget extends StatelessWidget {
+  const EmptyWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isCat = false;
     final Color color = Utils(context).color;
     final AppDimensions dimensions = AppDimensions(context);
     return Padding(
@@ -19,7 +20,7 @@ class EmptyOnSale extends StatelessWidget {
               child: Image.asset("assets/images/box.png"),
             ),
             Text(
-              'No Products on Sales Yet!\n Stayed Tuned!!',
+              isCat == true ? 'No Products on Sales Yet!\n Stayed Tuned!!' : 'No Product Now\n Stayed Tuned!!',
               style: TextStyle(
                 fontWeight: FontWeight.w700,
                 fontSize: dimensions.getScreenW(30),

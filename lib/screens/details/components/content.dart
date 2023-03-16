@@ -3,10 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/screens/cart/components/add_sub_button.dart';
-import 'package:grocery/screens/details/components/lower_part.dart';
 import 'package:grocery/screens/details/components/upper_part.dart';
+import 'package:grocery/widgets/green_widget.dart';
 import 'package:grocery/widgets/heart_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
@@ -42,6 +43,9 @@ class _ContentState extends State<Content> {
     final productId = ModalRoute.of(context)!.settings.arguments as String;
     final productProvider = Provider.of<ProductProvider>(context);
     final currentProduct = productProvider.findById(productId);
+    final cartProvider = Provider.of<CartProvider>(context);
+    bool isInCart =
+        cartProvider.getcartItems.containsKey(currentProduct.productid);
     final double price = currentProduct.productIsOnSale
         ? currentProduct.productSalePrice
         : currentProduct.productPrice;
@@ -96,11 +100,13 @@ class _ContentState extends State<Content> {
                     if (_quantityController.text == "1") {
                       return;
                     } else {
-                      setState(() {
-                        _quantityController.text =
-                            (int.parse(_quantityController.text) - 1)
-                                .toString();
-                      });
+                      setState(
+                        () {
+                          _quantityController.text =
+                              (int.parse(_quantityController.text) - 1)
+                                  .toString();
+                        },
+                      );
                     }
                   },
                 ),
@@ -141,7 +147,54 @@ class _ContentState extends State<Content> {
             ),
           ),
           const Spacer(),
-          LowerPart(totalPrice: totalPrice),
+          Container(
+            width: double.infinity,
+            height: dimensions.getScreenH(100),
+            decoration: BoxDecoration(
+                color: Theme.of(context).scaffoldBackgroundColor,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(dimensions.getScreenW(20)),
+                    topRight: Radius.circular(dimensions.getScreenW(20)))),
+            child: Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: dimensions.getScreenW(25)),
+              child: Row(
+                children: [
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: dimensions.getScreenW(10),
+                      ),
+                      TextWidget(
+                        text: 'Total',
+                        color: Colors.red,
+                        textSize: dimensions.getScreenW(20),
+                        isTitle: true,
+                      ),
+                      SizedBox(
+                        height: dimensions.getScreenW(5),
+                      ),
+                      TextWidget(
+                          text: '\$${totalPrice.toStringAsFixed(2)}',
+                          color: color,
+                          textSize: dimensions.getScreenW(25)),
+                    ],
+                  ),
+                  const Spacer(),
+                  GreenButtonWidget(
+                    text: isInCart ? 'In Cart' : 'Add to Cart',
+                    press: isInCart? null : () {
+                      cartProvider.addProductsToCart(
+                        productId: currentProduct.productid,
+                        quantity: int.parse(_quantityController.text),
+                      );
+                    },
+                  )
+                ],
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:grocery/models/cart_model.dart';
 import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/screens/cart/components/cart_header.dart';
 import 'package:grocery/screens/cart/components/cart_item.dart';

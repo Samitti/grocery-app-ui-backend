@@ -20,6 +20,8 @@ class OnSaleWidget extends StatelessWidget {
     final AppDimensions dimensions = AppDimensions(context);
     final productModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
+    bool isInCart =
+        cartProvider.getcartItems.containsKey(productModel.productid);
     return Padding(
       padding: EdgeInsets.all(dimensions.getScreenW(10)),
       child: InkWell(
@@ -63,15 +65,15 @@ class OnSaleWidget extends StatelessWidget {
                       Row(
                         children: [
                           GestureDetector(
-                            onTap: () {
+                            onTap: isInCart? null:() {
                               cartProvider.addProductsToCart(
                                 productId: productModel.productid,
                                 quantity: 1,
                               );
                             },
                             child: Icon(
-                              IconlyLight.bag2,
-                              color: color,
+                              isInCart? IconlyBold.bag2 : IconlyLight.bag2,
+                              color: isInCart ? Colors.green : color,
                               size: dimensions.getScreenW(22),
                             ),
                           ),

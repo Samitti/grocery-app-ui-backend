@@ -24,14 +24,14 @@ class BodyDetailsScreen extends StatelessWidget {
             width: double.infinity,
             child: FancyShimmerImage(
               imageUrl: currentProduct.productImageUrl,
-              height: dimensions.getScreenH(300),
-              width: dimensions.getScreenH(300),
+              height: dimensions.getScreenH(250),
+              width: dimensions.getScreenH(250),
               boxFit: BoxFit.cover,
             ),
           ),
         ),
         const Flexible(
-          flex: 4,
+          flex: 5,
           child: Content(),
         ),
       ],

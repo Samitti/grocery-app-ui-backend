@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery/models/cart_model.dart';
 import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/screens/cart/components/cart_header.dart';
 import 'package:grocery/screens/cart/components/cart_item.dart';
@@ -11,7 +12,7 @@ class FullCart extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
-    final cartItemList = cartProvider.getcartItems.values.toList();
+    final cartItemList = cartProvider.getcartItems.values.toList().reversed.toList();
     return Column(
       children: [
         const CartHeader(),
@@ -21,7 +22,7 @@ class FullCart extends StatelessWidget {
             itemBuilder: (context, index) {
               return ChangeNotifierProvider.value(
                 value: cartItemList[index],
-                child: const CartItem(),
+                child: CartItem(quantity: cartItemList[index].quantity,),
               );
             },
           ),

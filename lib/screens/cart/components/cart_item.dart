@@ -5,15 +5,18 @@ import 'package:flutter/services.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/models/cart_model.dart';
+import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/screens/cart/components/add_sub_button.dart';
+import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/widgets/heart_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
 class CartItem extends StatefulWidget {
+  final int quantity;
   const CartItem({
-    super.key,
+    super.key, required this.quantity,
   });
 
   @override
@@ -25,7 +28,7 @@ class _CartItemState extends State<CartItem> {
 
   @override
   void initState() {
-    _quantityController.text = '1';
+    _quantityController.text = widget.quantity.toString();
     super.initState();
   }
 
@@ -40,13 +43,20 @@ class _CartItemState extends State<CartItem> {
     final Color color = Utils(context).color;
     final AppDimensions dimensions = AppDimensions(context);
     final productProvider = Provider.of<ProductProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
     final cartModel = Provider.of<CartModel>(context);
     final currentProduct = productProvider.findById(cartModel.productId);
     final double price = currentProduct.productIsOnSale
         ? currentProduct.productSalePrice
         : currentProduct.productPrice;
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          DetailsScreen.routeName,
+          arguments: cartModel.productId,
+        );
+      },
       child: Row(
         children: [
           Expanded(
@@ -94,6 +104,8 @@ class _CartItemState extends State<CartItem> {
                                 icon: CupertinoIcons.minus,
                                 backColor: Colors.red,
                                 press: () {
+                                  cartProvider
+                                      .minusQuantity(currentProduct.productid);
                                   if (_quantityController.text == "1") {
                                     return;
                                   } else {
@@ -134,6 +146,8 @@ class _CartItemState extends State<CartItem> {
                                 icon: CupertinoIcons.plus,
                                 backColor: Colors.green,
                                 press: () {
+                                  cartProvider
+                                      .plusQuantity(currentProduct.productid);
                                   setState(() {
                                     _quantityController.text =
                                         (int.parse(_quantityController.text) +
@@ -154,7 +168,10 @@ class _CartItemState extends State<CartItem> {
                       child: Column(
                         children: [
                           InkWell(
-                            onTap: () {},
+                            onTap: () {
+                              cartProvider
+                                  .removeOneItem(currentProduct.productid);
+                            },
                             child: Icon(
                               CupertinoIcons.cart_badge_minus,
                               color: Colors.red,

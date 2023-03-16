@@ -25,7 +25,12 @@ class CartScreen extends StatelessWidget {
                   context: context,
                   text: 'Empty your cart',
                   subTitle: 'Are you sure?',
-                  press: () {},
+                  press: () {
+                    cartProvider.clearCart();
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                  },
                 );
               },
             ),

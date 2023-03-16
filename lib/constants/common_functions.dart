@@ -20,7 +20,7 @@ class CommonFunction {
     final Color color = Utils(context).color;
     final AppDimensions dimensions = AppDimensions(context);
     return AppBar(
-      centerTitle: true,
+      // centerTitle: true,
       leading: isLeading ? IconButton(
         style: IconButton.styleFrom(
             shape: RoundedRectangleBorder(

@@ -4,6 +4,7 @@ import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/models/product_model.dart';
+import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/screens/home/components/price.dart';
 import 'package:grocery/widgets/heart_widget.dart';
@@ -18,6 +19,7 @@ class OnSaleWidget extends StatelessWidget {
     final Color color = Utils(context).color;
     final AppDimensions dimensions = AppDimensions(context);
     final productModel = Provider.of<ProductModel>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
     return Padding(
       padding: EdgeInsets.all(dimensions.getScreenW(10)),
       child: InkWell(
@@ -61,7 +63,12 @@ class OnSaleWidget extends StatelessWidget {
                       Row(
                         children: [
                           GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              cartProvider.addProductsToCart(
+                                productId: productModel.productid,
+                                quantity: 1,
+                              );
+                            },
                             child: Icon(
                               IconlyLight.bag2,
                               color: color,
@@ -69,7 +76,9 @@ class OnSaleWidget extends StatelessWidget {
                             ),
                           ),
                           HeartWidget(
-                              color: color, size: dimensions.getScreenW(22)),
+                            color: color,
+                            size: dimensions.getScreenW(22),
+                          ),
                         ],
                       ),
                     ],

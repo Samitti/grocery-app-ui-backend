@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:grocery/models/cart_model.dart';
 
 class CartProvider with ChangeNotifier {
-  Map<String, CartModel> _cartItems = {};
+  final Map<String, CartModel> _cartItems = {};
 
-  Map<String, CartModel> get _getcartItems => _cartItems;
+  Map<String, CartModel> get getcartItems => _cartItems;
 
   void addProductsToCart({
     required String productId,

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
+import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/screens/cart/components/body.dart';
+import 'package:provider/provider.dart';
 
 class CartScreen extends StatelessWidget {
   static String routeName = "/cart";
@@ -9,25 +11,25 @@ class CartScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const bool isEmpty = true;
+    final cartProvider = Provider.of<CartProvider>(context);
+    final cartItemList = cartProvider.getcartItems.values.toList();
     return Scaffold(
-      appBar: isEmpty
+      appBar: cartItemList.isEmpty
           ? null
           : CommonFunction.appBar(
               context: context,
-              text: 'Cart (2)',
+              text: 'Cart (${cartItemList.length})',
               isSuffix: true,
               suffixPress: () async {
                 await CommonFunction.warningDialog(
-                    context: context,
-                    text: 'Empty your cart',
-                    subTitle: 'Are you sure?',
-                    press: () {});
+                  context: context,
+                  text: 'Empty your cart',
+                  subTitle: 'Are you sure?',
+                  press: () {},
+                );
               },
             ),
-      body: const SingleChildScrollView(
-        child: BodyCartScreen(),
-      ),
+      body: const BodyCartScreen(),
     );
   }
 }

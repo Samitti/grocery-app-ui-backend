@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/models/product_model.dart';
+import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/screens/home/components/price.dart';
 import 'package:grocery/widgets/heart_widget.dart';
@@ -37,6 +38,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
     final AppDimensions dimensions = AppDimensions(context);
     final Color color = Utils(context).color;
     final productModel = Provider.of<ProductModel>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: dimensions.getScreenH(15),
@@ -122,7 +124,8 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                               maxLines: 1,
                               decoration: const InputDecoration(
                                 focusedBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide()),
+                                  borderSide: BorderSide(),
+                                ),
                               ),
                               inputFormatters: [
                                 FilteringTextInputFormatter.allow(
@@ -159,7 +162,12 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                       ),
                     ),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    cartProvider.addProductsToCart(
+                      productId: productModel.productid,
+                      quantity: int.parse(_quantityController.text),
+                    );
+                  },
                   child: TextWidget(
                     color: Colors.black,
                     text: 'Add to Cart',

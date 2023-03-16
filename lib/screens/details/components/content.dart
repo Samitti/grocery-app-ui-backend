@@ -5,7 +5,8 @@ import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/screens/cart/components/add_sub_button.dart';
-import 'package:grocery/widgets/green_widget.dart';
+import 'package:grocery/screens/details/components/lower_part.dart';
+import 'package:grocery/screens/details/components/upper_part.dart';
 import 'package:grocery/widgets/heart_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
@@ -83,49 +84,7 @@ class _ContentState extends State<Content> {
               ],
             ),
           ),
-          SizedBox(
-            width: double.infinity,
-            height: dimensions.getScreenH(100),
-            child: Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: dimensions.getScreenW(20)),
-              child: Row(
-                children: [
-                  TextWidget(
-                    text: '\$${price.toStringAsFixed(2)}/',
-                    color: Colors.green,
-                    textSize: dimensions.getScreenW(25),
-                    isTitle: true,
-                  ),
-                  TextWidget(
-                    text: currentProduct.productIsPiece ? 'Piece' : '/KG',
-                    color: color,
-                    textSize: dimensions.getScreenW(15),
-                    isTitle: false,
-                  ),
-                  SizedBox(
-                    width: dimensions.getScreenW(10),
-                  ),
-                  Visibility(
-                    visible: currentProduct.productIsOnSale ? true : false,
-                    child: Text(
-                      '\$${currentProduct.productPrice.toStringAsFixed(2)}',
-                      style: TextStyle(
-                        fontSize: dimensions.getScreenW(20),
-                        color: color,
-                        decoration: TextDecoration.lineThrough,
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  GreenButtonWidget(
-                    text: 'Free Delivery',
-                    press: () {},
-                  ),
-                ],
-              ),
-            ),
-          ),
+          const UpperPart(),
           SizedBox(
             width: dimensions.getScreenW(100),
             child: Row(
@@ -182,49 +141,7 @@ class _ContentState extends State<Content> {
             ),
           ),
           const Spacer(),
-          Container(
-            width: double.infinity,
-            height: dimensions.getScreenH(100),
-            decoration: BoxDecoration(
-                color: Theme.of(context).scaffoldBackgroundColor,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(dimensions.getScreenW(20)),
-                    topRight: Radius.circular(dimensions.getScreenW(20)))),
-            child: Padding(
-              padding:
-                  EdgeInsets.symmetric(horizontal: dimensions.getScreenW(25)),
-              child: Row(
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      SizedBox(
-                        height: dimensions.getScreenW(10),
-                      ),
-                      TextWidget(
-                        text: 'Total',
-                        color: Colors.red,
-                        textSize: dimensions.getScreenW(20),
-                        isTitle: true,
-                      ),
-                      SizedBox(
-                        height: dimensions.getScreenW(5),
-                      ),
-                      TextWidget(
-                          text: '\$${totalPrice.toStringAsFixed(2)}',
-                          color: color,
-                          textSize: dimensions.getScreenW(25)),
-                    ],
-                  ),
-                  const Spacer(),
-                  GreenButtonWidget(
-                    text: 'Add to Cart',
-                    press: () {},
-                  )
-                ],
-              ),
-            ),
-          ),
+          LowerPart(totalPrice: totalPrice),
         ],
       ),
     );

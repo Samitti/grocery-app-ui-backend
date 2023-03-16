@@ -7,7 +7,7 @@ class EmptyWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isCat = false;
+    const isCat = false;
     final Color color = Utils(context).color;
     final AppDimensions dimensions = AppDimensions(context);
     return Padding(

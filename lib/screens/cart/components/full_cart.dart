@@ -19,7 +19,10 @@ class FullCart extends StatelessWidget {
           child: ListView.builder(
             itemCount: cartItemList.length,
             itemBuilder: (context, index) {
-              return const CartItem();
+              return ChangeNotifierProvider.value(
+                value: cartItemList[index],
+                child: const CartItem(),
+              );
             },
           ),
         ),

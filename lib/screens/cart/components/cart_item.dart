@@ -1,22 +1,50 @@
-
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/models/cart_model.dart';
+import 'package:grocery/provider/product_provider.dart';
+import 'package:grocery/screens/cart/components/add_sub_button.dart';
 import 'package:grocery/widgets/heart_widget.dart';
-import 'package:grocery/screens/cart/components/quantity_controller_cart.dart';
 import 'package:grocery/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
-class CartItem extends StatelessWidget {
+class CartItem extends StatefulWidget {
   const CartItem({
     super.key,
   });
 
   @override
+  State<CartItem> createState() => _CartItemState();
+}
+
+class _CartItemState extends State<CartItem> {
+  final TextEditingController _quantityController = TextEditingController();
+
+  @override
+  void initState() {
+    _quantityController.text = '1';
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _quantityController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final Color color = Utils(context).color;
     final AppDimensions dimensions = AppDimensions(context);
+    final productProvider = Provider.of<ProductProvider>(context);
+    final cartModel = Provider.of<CartModel>(context);
+    final currentProduct = productProvider.findById(cartModel.productId);
+    final double price = currentProduct.productIsOnSale
+        ? currentProduct.productSalePrice
+        : currentProduct.productPrice;
     return GestureDetector(
       onTap: () {},
       child: Row(
@@ -39,7 +67,7 @@ class CartItem extends StatelessWidget {
                           borderRadius:
                               BorderRadius.circular(dimensions.getScreenW(12))),
                       child: FancyShimmerImage(
-                        imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
+                        imageUrl: currentProduct.productImageUrl,
                         boxFit: BoxFit.fill,
                       ),
                     ),
@@ -50,7 +78,7 @@ class CartItem extends StatelessWidget {
                           height: dimensions.getScreenH(10),
                         ),
                         TextWidget(
-                          text: 'Title',
+                          text: currentProduct.productTitle,
                           color: color,
                           textSize: dimensions.getScreenW(20),
                           isTitle: true,
@@ -58,7 +86,65 @@ class CartItem extends StatelessWidget {
                         SizedBox(
                           height: dimensions.getScreenH(16),
                         ),
-                        const QuantityControllerCart(),
+                        SizedBox(
+                          width: dimensions.getScreenW(100),
+                          child: Row(
+                            children: [
+                              AddSubButtons(
+                                icon: CupertinoIcons.minus,
+                                backColor: Colors.red,
+                                press: () {
+                                  if (_quantityController.text == "1") {
+                                    return;
+                                  } else {
+                                    setState(() {
+                                      _quantityController.text =
+                                          (int.parse(_quantityController.text) -
+                                                  1)
+                                              .toString();
+                                    });
+                                  }
+                                },
+                              ),
+                              Flexible(
+                                flex: 1,
+                                child: TextField(
+                                  textAlign: TextAlign.center,
+                                  controller: _quantityController,
+                                  keyboardType: TextInputType.number,
+                                  maxLines: 1,
+                                  decoration: const InputDecoration(
+                                    focusedBorder: UnderlineInputBorder(
+                                        borderSide: BorderSide()),
+                                  ),
+                                  inputFormatters: [
+                                    FilteringTextInputFormatter.allow(
+                                        RegExp('[0-9]'))
+                                  ],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      if (value.isEmpty) {
+                                        _quantityController.text = "1";
+                                      } else {}
+                                    });
+                                  },
+                                ),
+                              ),
+                              AddSubButtons(
+                                icon: CupertinoIcons.plus,
+                                backColor: Colors.green,
+                                press: () {
+                                  setState(() {
+                                    _quantityController.text =
+                                        (int.parse(_quantityController.text) +
+                                                1)
+                                            .toString();
+                                  });
+                                },
+                              ),
+                            ],
+                          ),
+                        ),
                       ],
                     ),
                     const Spacer(),
@@ -79,14 +165,15 @@ class CartItem extends StatelessWidget {
                             height: dimensions.getScreenH(5),
                           ),
                           HeartWidget(
-                              color: color,
-                              size: dimensions.getScreenW(20),
-                              press: () {}),
+                            color: color,
+                            size: dimensions.getScreenW(20),
+                            press: () {},
+                          ),
                           SizedBox(
                             height: dimensions.getScreenH(5),
                           ),
                           TextWidget(
-                            text: "\$0.29",
+                            text: "\$${price.toStringAsFixed(2)}",
                             color: color,
                             textSize: dimensions.getScreenH(20),
                             maxLines: 1,

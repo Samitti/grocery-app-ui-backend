@@ -6,15 +6,8 @@ import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/screens/details/components/content.dart';
 import 'package:provider/provider.dart';
 
-class BodyDetailsScreen extends StatefulWidget {
+class BodyDetailsScreen extends StatelessWidget {
   const BodyDetailsScreen({super.key});
-
-  @override
-  State<BodyDetailsScreen> createState() => _BodyDetailsScreenState();
-}
-
-class _BodyDetailsScreenState extends State<BodyDetailsScreen> {
-
 
   @override
   Widget build(BuildContext context) {

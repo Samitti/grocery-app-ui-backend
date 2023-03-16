@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:grocery/constants/routes.dart';
 import 'package:grocery/constants/theme_data.dart';
+import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
@@ -28,7 +29,8 @@ class _MyAppState extends State<MyApp> {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (_) => darkThemeProvider),
-        ChangeNotifierProvider(create: (_) => productProvider)
+        ChangeNotifierProvider(create: (_) => productProvider),
+        ChangeNotifierProvider(create: (_) => cartProvider)
         ],
       child: Consumer<DarkThemeProvider>(
           builder: (context, darkThemeProvider, child) {
@@ -45,6 +47,7 @@ class _MyAppState extends State<MyApp> {
 
   DarkThemeProvider darkThemeProvider = DarkThemeProvider();
   ProductProvider productProvider = ProductProvider();
+  CartProvider cartProvider = CartProvider();
 
   void getCurrentAppTheme() async {
     darkThemeProvider.setDarkTheme =

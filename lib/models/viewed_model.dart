@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-class ViwedModel with ChangeNotifier {
+class ViewedModel with ChangeNotifier {
   final String id, productId;
 
-  ViwedModel({
+  ViewedModel({
     required this.id,
     required this.productId,
   });

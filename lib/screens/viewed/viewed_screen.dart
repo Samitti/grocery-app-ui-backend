@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
+import 'package:grocery/provider/viewed_provider.dart';
 import 'package:grocery/screens/viewed/components/body.dart';
+import 'package:provider/provider.dart';
 
 class ViewedScreen extends StatelessWidget {
   static String routeName = "/viewed";
@@ -8,9 +10,11 @@ class ViewedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const bool isEmpty = true;
+    final viewedProvider = Provider.of<ViewedProvider>(context);
+    final viewedItemList =
+        viewedProvider.getviewedItems.values.toList().reversed.toList();
     return Scaffold(
-      appBar: isEmpty
+      appBar: viewedItemList.isEmpty
           ? null
           : CommonFunction.appBar(
               context: context,
@@ -23,9 +27,7 @@ class ViewedScreen extends StatelessWidget {
                     text: "Clear History",
                     subTitle: "Are you sure?");
               }),
-      body: const SingleChildScrollView(
-        child:  BodyViewedScreen(),
-      ),
+      body: const BodyViewedScreen(),
     );
   }
 }

@@ -1,25 +1,31 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery/provider/wishlist_provider.dart';
+import 'package:provider/provider.dart';
 
 class HeartWidget extends StatelessWidget {
   const HeartWidget({
     super.key,
     required this.color,
-    required this.size, this.press,
+    required this.size,
+    required this.productId, this.isInWishlist = false,
   });
 
   final Color color;
   final double size;
-  final void Function()? press;
+  final String productId;
+  final bool? isInWishlist;
 
   @override
   Widget build(BuildContext context) {
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
     return GestureDetector(
-      onTap: press,
+      onTap: () {
+        wishlistProvider.addRemoveProductsToWishlist(productId: productId);
+      },
       child: Icon(
-        IconlyLight.heart,
-        color: color,
+        isInWishlist!? IconlyBold.heart : IconlyLight.heart,
+        color: isInWishlist!? Colors.red :color,
         size: size,
       ),
     );

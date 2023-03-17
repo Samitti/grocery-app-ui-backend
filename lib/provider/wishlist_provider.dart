@@ -6,7 +6,7 @@ class WishlistProvider with ChangeNotifier {
 
   Map<String, WishlistModel> get getwhislistItems => _whislistItems;
 
-  void addProductsToWishlist({
+  void addRemoveProductsToWishlist({
     required String productId,
   }) {
     if (_whislistItems.containsKey(productId)) {

@@ -5,6 +5,7 @@ import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/models/product_model.dart';
 import 'package:grocery/provider/cart_provider.dart';
+import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/screens/home/components/price.dart';
 import 'package:grocery/widgets/heart_widget.dart';
@@ -20,8 +21,11 @@ class OnSaleWidget extends StatelessWidget {
     final AppDimensions dimensions = AppDimensions(context);
     final productModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
     bool isInCart =
         cartProvider.getcartItems.containsKey(productModel.productid);
+    bool? isInWishlist =
+        wishlistProvider.getwhislistItems.containsKey(productModel.productid);
     return Padding(
       padding: EdgeInsets.all(dimensions.getScreenW(10)),
       child: InkWell(
@@ -65,14 +69,16 @@ class OnSaleWidget extends StatelessWidget {
                       Row(
                         children: [
                           GestureDetector(
-                            onTap: isInCart? null:() {
-                              cartProvider.addProductsToCart(
-                                productId: productModel.productid,
-                                quantity: 1,
-                              );
-                            },
+                            onTap: isInCart
+                                ? null
+                                : () {
+                                    cartProvider.addProductsToCart(
+                                      productId: productModel.productid,
+                                      quantity: 1,
+                                    );
+                                  },
                             child: Icon(
-                              isInCart? IconlyBold.bag2 : IconlyLight.bag2,
+                              isInCart ? IconlyBold.bag2 : IconlyLight.bag2,
                               color: isInCart ? Colors.green : color,
                               size: dimensions.getScreenW(22),
                             ),
@@ -80,6 +86,8 @@ class OnSaleWidget extends StatelessWidget {
                           HeartWidget(
                             color: color,
                             size: dimensions.getScreenW(22),
+                            productId: productModel.productid,
+                            isInWishlist: isInWishlist,
                           ),
                         ],
                       ),

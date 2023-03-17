@@ -5,6 +5,7 @@ import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/models/product_model.dart';
 import 'package:grocery/provider/cart_provider.dart';
+import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/screens/home/components/price.dart';
 import 'package:grocery/widgets/heart_widget.dart';
@@ -39,8 +40,11 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
     final Color color = Utils(context).color;
     final productModel = Provider.of<ProductModel>(context);
     final cartProvider = Provider.of<CartProvider>(context);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
     bool isInCart =
         cartProvider.getcartItems.containsKey(productModel.productid);
+    bool? isInWishlist =
+        wishlistProvider.getwhislistItems.containsKey(productModel.productid);
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: dimensions.getScreenH(15),
@@ -85,9 +89,14 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                       ),
                     ),
                     Flexible(
-                        flex: 1,
-                        child: HeartWidget(
-                            color: color, size: dimensions.getScreenW(22))),
+                      flex: 1,
+                      child: HeartWidget(
+                        color: color,
+                        size: dimensions.getScreenW(22),
+                        productId: productModel.productid,
+                        isInWishlist: isInWishlist,
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -164,14 +173,14 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                       ),
                     ),
                   ),
-                  onPressed:  isInCart
+                  onPressed: isInCart
                       ? null
-                      : (){
-                    cartProvider.addProductsToCart(
-                      productId: productModel.productid,
-                      quantity: int.parse(_quantityController.text),
-                    );
-                  },
+                      : () {
+                          cartProvider.addProductsToCart(
+                            productId: productModel.productid,
+                            quantity: int.parse(_quantityController.text),
+                          );
+                        },
                   child: TextWidget(
                     color: Colors.black,
                     text: isInCart ? 'In Cart' : 'Add to Cart',

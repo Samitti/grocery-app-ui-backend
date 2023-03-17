@@ -1,13 +1,14 @@
-
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/widgets/heart_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 class ProductContainer extends StatelessWidget {
   const ProductContainer({
@@ -17,9 +18,12 @@ class ProductContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppDimensions dimensions = AppDimensions(context);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
     final Color color = Utils(context).color;
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: dimensions.getScreenW(8), vertical: dimensions.getScreenH(10)),
+      padding: EdgeInsets.symmetric(
+          horizontal: dimensions.getScreenW(8),
+          vertical: dimensions.getScreenH(10)),
       child: InkWell(
         onTap: () {
           CommonFunction.navigateToPage(
@@ -57,7 +61,12 @@ class ProductContainer extends StatelessWidget {
                           size: dimensions.getScreenW(25),
                         ),
                       ),
-                      HeartWidget(color: color, size: dimensions.getScreenW(25))
+                      // HeartWidget(
+                      //   color: color,
+                      //   size: dimensions.getScreenW(22),
+                      //   productId: currentProduct.productid,
+                      //   isInWishlist: isInWishlist,
+                      // ),
                     ],
                   ),
                   Flexible(

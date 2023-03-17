@@ -5,6 +5,7 @@ import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
+import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/cart/components/add_sub_button.dart';
 import 'package:grocery/screens/details/components/upper_part.dart';
 import 'package:grocery/widgets/green_widget.dart';
@@ -42,6 +43,7 @@ class _ContentState extends State<Content> {
     final Color color = Utils(context).color;
     final productId = ModalRoute.of(context)!.settings.arguments as String;
     final productProvider = Provider.of<ProductProvider>(context);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
     final currentProduct = productProvider.findById(productId);
     final cartProvider = Provider.of<CartProvider>(context);
     bool isInCart =
@@ -50,6 +52,8 @@ class _ContentState extends State<Content> {
         ? currentProduct.productSalePrice
         : currentProduct.productPrice;
     final totalPrice = price * int.parse(_quantityController.text);
+    bool? isInWishlist =
+        wishlistProvider.getwhislistItems.containsKey(currentProduct.productid);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -83,8 +87,9 @@ class _ContentState extends State<Content> {
                 HeartWidget(
                   color: color,
                   size: dimensions.getScreenW(20),
-                  press: () {},
-                )
+                  productId: currentProduct.productid,
+                  isInWishlist: isInWishlist,
+                ),
               ],
             ),
           ),
@@ -184,12 +189,14 @@ class _ContentState extends State<Content> {
                   const Spacer(),
                   GreenButtonWidget(
                     text: isInCart ? 'In Cart' : 'Add to Cart',
-                    press: isInCart? null : () {
-                      cartProvider.addProductsToCart(
-                        productId: currentProduct.productid,
-                        quantity: int.parse(_quantityController.text),
-                      );
-                    },
+                    press: isInCart
+                        ? null
+                        : () {
+                            cartProvider.addProductsToCart(
+                              productId: currentProduct.productid,
+                              quantity: int.parse(_quantityController.text),
+                            );
+                          },
                   )
                 ],
               ),

@@ -7,6 +7,7 @@ import 'package:grocery/constants/utils.dart';
 import 'package:grocery/models/cart_model.dart';
 import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
+import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/cart/components/add_sub_button.dart';
 import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/widgets/heart_widget.dart';
@@ -16,7 +17,8 @@ import 'package:provider/provider.dart';
 class CartItem extends StatefulWidget {
   final int quantity;
   const CartItem({
-    super.key, required this.quantity,
+    super.key,
+    required this.quantity,
   });
 
   @override
@@ -45,7 +47,10 @@ class _CartItemState extends State<CartItem> {
     final productProvider = Provider.of<ProductProvider>(context);
     final cartProvider = Provider.of<CartProvider>(context);
     final cartModel = Provider.of<CartModel>(context);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
     final currentProduct = productProvider.findById(cartModel.productId);
+    bool? isInWishlist =
+        wishlistProvider.getwhislistItems.containsKey(currentProduct.productid);
     final double price = currentProduct.productIsOnSale
         ? currentProduct.productSalePrice
         : currentProduct.productPrice;
@@ -183,8 +188,9 @@ class _CartItemState extends State<CartItem> {
                           ),
                           HeartWidget(
                             color: color,
-                            size: dimensions.getScreenW(20),
-                            press: () {},
+                            size: dimensions.getScreenW(22),
+                            productId: currentProduct.productid,
+                            isInWishlist: isInWishlist,
                           ),
                           SizedBox(
                             height: dimensions.getScreenH(5),

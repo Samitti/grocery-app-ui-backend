@@ -1,9 +1,10 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
-import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/models/wishlist_model.dart';
+import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/widgets/heart_widget.dart';
@@ -18,16 +19,27 @@ class ProductContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppDimensions dimensions = AppDimensions(context);
-    final wishlistProvider = Provider.of<WishlistProvider>(context);
     final Color color = Utils(context).color;
+    final wishlistModel = Provider.of<WishlistModel>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
+    final currentProduct = productProvider.findById(wishlistModel.productId);
+    final double price = currentProduct.productIsOnSale
+        ? currentProduct.productSalePrice
+        : currentProduct.productPrice;
+    bool? isInWishlist =
+        wishlistProvider.getwhislistItems.containsKey(wishlistModel.productId);
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: dimensions.getScreenW(8),
           vertical: dimensions.getScreenH(10)),
       child: InkWell(
         onTap: () {
-          CommonFunction.navigateToPage(
-              context: context, routeName: DetailsScreen.routeName);
+          Navigator.pushNamed(
+            context,
+            DetailsScreen.routeName,
+            arguments: wishlistModel.productId,
+          );
         },
         child: Container(
           height: dimensions.getScreenH(130),
@@ -40,54 +52,57 @@ class ProductContainer extends StatelessWidget {
               borderRadius: BorderRadius.circular(dimensions.getScreenW(10))),
           child: Row(
             children: [
-              Container(
-                margin: EdgeInsets.only(left: dimensions.getScreenW(10)),
-                width: dimensions.getScreenW(90),
-                height: dimensions.getScreenH(90),
-                child: FancyShimmerImage(
-                  imageUrl: 'https://i.ibb.co/F0s3FHQ/Apricots.png',
-                  boxFit: BoxFit.fill,
+              Flexible(
+                flex: 3,
+                child: Container(
+                  margin: EdgeInsets.only(left: dimensions.getScreenW(10)),
+                  height: dimensions.getScreenH(90),
+                  child: FancyShimmerImage(
+                    imageUrl: currentProduct.productImageUrl,
+                    boxFit: BoxFit.fill,
+                  ),
                 ),
               ),
-              Column(
-                children: [
-                  Row(
-                    children: [
-                      IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          IconlyLight.bag2,
-                          color: color,
-                          size: dimensions.getScreenW(25),
+              Flexible(
+                flex: 3,
+                child: Column(
+                  children: [
+                    Row(
+                      children: [
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            IconlyLight.bag2,
+                            color: color,
+                            size: dimensions.getScreenW(25),
+                          ),
                         ),
-                      ),
-                      // HeartWidget(
-                      //   color: color,
-                      //   size: dimensions.getScreenW(22),
-                      //   productId: currentProduct.productid,
-                      //   isInWishlist: isInWishlist,
-                      // ),
-                    ],
-                  ),
-                  Flexible(
-                    child: TextWidget(
-                      text: 'Title',
+                        HeartWidget(
+                          color: color,
+                          size: dimensions.getScreenW(22),
+                          productId: currentProduct.productid,
+                          isInWishlist: isInWishlist,
+                        ),
+                      ],
+                    ),
+                    TextWidget(
+                      text: currentProduct.productTitle,
                       color: color,
                       textSize: dimensions.getScreenW(20),
                       isTitle: true,
-                      maxLines: 2,
+                      maxLines: 1,
                     ),
-                  ),
-                  SizedBox(
-                    height: dimensions.getScreenH(10),
-                  ),
-                  TextWidget(
-                    text: '\$2.56',
-                    color: color,
-                    textSize: dimensions.getScreenW(18),
-                    maxLines: 1,
-                  ),
-                ],
+                    SizedBox(
+                      height: dimensions.getScreenH(10),
+                    ),
+                    TextWidget(
+                      text: '\$${price.toStringAsFixed(2)}',
+                      color: color,
+                      textSize: dimensions.getScreenW(18),
+                      maxLines: 1,
+                    ),
+                  ],
+                ),
               )
             ],
           ),

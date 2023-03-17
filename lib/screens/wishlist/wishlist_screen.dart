@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
+import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/wishlist/components/body.dart';
+import 'package:provider/provider.dart';
 
 class WishListScreen extends StatelessWidget {
   static String routeName = "/wishlist";
@@ -8,13 +10,15 @@ class WishListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const bool isEmpty = true;
+    final wishlistProvider = Provider.of<WishlistProvider>(context);
+    final wishlistItemList =
+        wishlistProvider.getwhislistItems.values.toList().reversed.toList();
     return Scaffold(
-      appBar: isEmpty
+      appBar: wishlistItemList.isEmpty
           ? null
           : CommonFunction.appBar(
               context: context,
-              text: 'WishList (2)',
+              text: 'WishList (${wishlistItemList.length})',
               isSuffix: true,
               isLeading: true,
               suffixPress: () async {
@@ -22,11 +26,16 @@ class WishListScreen extends StatelessWidget {
                   context: context,
                   text: 'Empty your wishlist',
                   subTitle: 'Are you sure?',
-                  press: () {},
+                  press: () {
+                    wishlistProvider.clearWishlist();
+                    if (Navigator.canPop(context)) {
+                      Navigator.pop(context);
+                    }
+                  },
                 );
               },
             ),
-      body: const SingleChildScrollView(child: BodyWishListScreen()),
+      body: const BodyWishListScreen(),
     );
   }
 }

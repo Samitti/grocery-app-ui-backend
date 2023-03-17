@@ -5,6 +5,7 @@ import 'package:grocery/constants/theme_data.dart';
 import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
+import 'package:grocery/provider/viewed_provider.dart';
 import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
 import 'package:provider/provider.dart';
@@ -33,6 +34,7 @@ class _MyAppState extends State<MyApp> {
         ChangeNotifierProvider(create: (_) => productProvider),
         ChangeNotifierProvider(create: (_) => cartProvider),
         ChangeNotifierProvider(create: (_) => wishlistProvider),
+        ChangeNotifierProvider(create: (_) => viewedProvider),
       ],
       child: Consumer<DarkThemeProvider>(
           builder: (context, darkThemeProvider, child) {
@@ -51,6 +53,7 @@ class _MyAppState extends State<MyApp> {
   ProductProvider productProvider = ProductProvider();
   CartProvider cartProvider = CartProvider();
   WishlistProvider wishlistProvider = WishlistProvider();
+  ViewedProvider viewedProvider = ViewedProvider();
 
   void getCurrentAppTheme() async {
     darkThemeProvider.setDarkTheme =

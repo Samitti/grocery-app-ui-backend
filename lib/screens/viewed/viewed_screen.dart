@@ -25,8 +25,15 @@ class ViewedScreen extends StatelessWidget {
                 await CommonFunction.warningDialog(
                     context: context,
                     text: "Clear History",
-                    subTitle: "Are you sure?");
-              }),
+                    subTitle: "Are you sure?",
+                    press: () {
+                      viewedProvider.clearHistroy();
+                      if (Navigator.canPop(context)) {
+                        Navigator.pop(context);
+                      }
+                    });
+              },
+            ),
       body: const BodyViewedScreen(),
     );
   }

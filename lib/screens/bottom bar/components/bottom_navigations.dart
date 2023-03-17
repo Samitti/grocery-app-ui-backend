@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/constants/dimension.dart';
+import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,8 @@ class BottomBarNavigations extends StatelessWidget {
     final themeState = Provider.of<DarkThemeProvider>(context);
     bool isDark = themeState.getDarkTheme;
     final AppDimensions dimensions = AppDimensions(context);
+    final cartProvider = Provider.of<CartProvider>(context);
+    final cartItemList = cartProvider.getcartItems.values.toList();
 
     return BottomNavigationBar(
       unselectedItemColor: isDark ? Colors.white10 : Colors.black26,
@@ -49,7 +52,7 @@ class BottomBarNavigations extends StatelessWidget {
             position: badges.BadgePosition.topEnd(top: -7, end: -7),
             badgeContent: FittedBox(
               child: TextWidget(
-                text: '2',
+                text: cartItemList.length.toString(),
                 color: Colors.white,
                 textSize: dimensions.getScreenW(15),
               ),

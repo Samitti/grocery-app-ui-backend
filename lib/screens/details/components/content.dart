@@ -1,7 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
+import 'package:grocery/constants/firebase_constant.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
@@ -192,6 +195,13 @@ class _ContentState extends State<Content> {
                     press: isInCart
                         ? null
                         : () {
+                            final User? user = firebaseAuth.currentUser;
+                            if (user == null) {
+                              CommonFunction.errorDialog(
+                                  context: context,
+                                  subTitle: 'Please Login First');
+                              return;
+                            }
                             cartProvider.addProductsToCart(
                               productId: currentProduct.productid,
                               quantity: int.parse(_quantityController.text),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/dimension.dart';
+import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
 import 'package:grocery/services/auth_services.dart';
 import 'package:grocery/widgets/button_widget.dart';
 
@@ -33,14 +34,9 @@ class _TextFieldSignUpState extends State<TextFieldSignUp> {
     super.dispose();
   }
 
-  bool isLoading = false;
-
-  void _submitForm() async {
+  void _submitForm() {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    setState(() {
-      isLoading = true;
-    });
     if (isValid) {
       _formKey.currentState!.save();
       AuthServices().createAccountWithEmailPassword(
@@ -48,9 +44,7 @@ class _TextFieldSignUpState extends State<TextFieldSignUp> {
         password: _passwordController.text.trim(),
         context: context,
       );
-      setState(() {
-        isLoading = false;
-      });
+      Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
     }
   }
 
@@ -189,15 +183,11 @@ class _TextFieldSignUpState extends State<TextFieldSignUp> {
           SizedBox(
             height: dimensions.getScreenH(20),
           ),
-          isLoading == true
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : ButtonWidget(
-                  buttonText: 'Sign Up',
-                  press: _submitForm,
-                  isIcon: false,
-                ),
+          ButtonWidget(
+            buttonText: 'Sign Up',
+            press: _submitForm,
+            isIcon: false,
+          ),
         ],
       ),
     );

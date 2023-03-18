@@ -3,7 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/firebase_constant.dart';
 
-class AuthServices {  
+class AuthServices {
   void createAccountWithEmailPassword({
     required String email,
     required String password,
@@ -31,5 +31,9 @@ class AuthServices {
         rethrow;
       }
     }
+  }
+
+  void signOut() async{
+      await firebaseAuth.signOut();
   }
 }

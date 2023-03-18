@@ -4,7 +4,6 @@ import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
-import 'package:grocery/screens/forget/forget_password_screen.dart';
 import 'package:grocery/screens/signin/component/text_fields_signin.dart';
 import 'package:grocery/screens/signup/signup_screen.dart';
 import 'package:grocery/widgets/button_widget.dart';
@@ -48,35 +47,6 @@ class BodySignInScreen extends StatelessWidget {
           SizedBox(
             height: dimensions.getScreenH(10),
           ),
-          Align(
-            alignment: Alignment.topRight,
-            child: TextButton(
-              onPressed: () {
-                CommonFunction.navigateToPage(context: context, routeName: ForgetPasswordScreen.routeName);
-              },
-              child: Text(
-                'Forget Password?',
-                maxLines: 1,
-                style: TextStyle(
-                  color: Colors.lightBlue,
-                  fontSize: dimensions.getScreenW(18),
-                  decoration: TextDecoration.underline,
-                  fontStyle: FontStyle.italic,
-                ),
-              ),
-            ),
-          ),
-          SizedBox(
-            height: dimensions.getScreenH(10),
-          ),
-          ButtonWidget(
-            buttonText: 'Sign In',
-            press: () {},
-            isIcon: false,
-          ),
-          SizedBox(
-            height: dimensions.getScreenH(10),
-          ),
           ButtonWidget(isIcon: true, press: () {}),
           SizedBox(
             height: dimensions.getScreenH(10),
@@ -113,7 +83,7 @@ class BodySignInScreen extends StatelessWidget {
           ButtonWidget(
             buttonText: 'Continue as Guest',
             press: () {
-               CommonFunction.navigateToPage(
+              CommonFunction.navigateToPage(
                   context: context, routeName: BottomBarScreen.routeName);
             },
             isIcon: false,
@@ -130,17 +100,19 @@ class BodySignInScreen extends StatelessWidget {
               ),
               children: [
                 TextSpan(
-                    text: " Sign Up",
-                    style: TextStyle(
-                      color: Colors.lightBlue,
-                      fontSize: dimensions.getScreenW(20),
-                    ),
-                    recognizer: TapGestureRecognizer()
-                      ..onTap = () {
-                        CommonFunction.navigateToPage(
-                            context: context,
-                            routeName: SignUpScreen.routeName);
-                      })
+                  text: " Sign Up",
+                  style: TextStyle(
+                    color: Colors.lightBlue,
+                    fontSize: dimensions.getScreenW(20),
+                  ),
+                  recognizer: TapGestureRecognizer()
+                    ..onTap = () {
+                      CommonFunction.navigateToPage(
+                        context: context,
+                        routeName: SignUpScreen.routeName,
+                      );
+                    },
+                )
               ],
             ),
           )

@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
+import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
+import 'package:grocery/screens/forget/forget_password_screen.dart';
+import 'package:grocery/services/auth_services.dart';
+import 'package:grocery/widgets/button_widget.dart';
 
 class TextFieldSignin extends StatefulWidget {
   const TextFieldSignin({super.key});
@@ -26,7 +31,13 @@ class _TextFieldSigninState extends State<TextFieldSignin> {
   void _submitFrom() {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
-    if(isValid){
+    if (isValid) {
+      AuthServices().loginUserWithEmailPassword(
+        email: _emailController.text.toLowerCase().trim(),
+        password: _passwordController.text.trim(),
+        context: context,
+      );
+      Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
     }
   }
 
@@ -34,83 +45,109 @@ class _TextFieldSigninState extends State<TextFieldSignin> {
   Widget build(BuildContext context) {
     final AppDimensions dimensions = AppDimensions(context);
     return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          TextFormField(
-            textInputAction: TextInputAction.next,
-            onEditingComplete: () => FocusScope.of(context).requestFocus(_passwordFoucs),
-            controller: _emailController,
-            keyboardType: TextInputType.emailAddress,
-            validator: (value){
-              if(value!.isEmpty || !value.contains('@') || !value.contains('.')){
-                return 'Please enter a valid email';
-              }else{
-                return null;
-              }
-            },
-            style: const TextStyle(color: Colors.black),
-            decoration: const InputDecoration(
-              hintText: 'Email',
-              hintStyle: TextStyle(color: Colors.black),
-              enabledBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black)
-              ),
-              focusedBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black)
-              ),
-              errorBorder: UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.red)
+        key: _formKey,
+        child: Column(
+          children: [
+            TextFormField(
+              textInputAction: TextInputAction.next,
+              onEditingComplete: () =>
+                  FocusScope.of(context).requestFocus(_passwordFoucs),
+              controller: _emailController,
+              keyboardType: TextInputType.emailAddress,
+              validator: (value) {
+                if (value!.isEmpty ||
+                    !value.contains('@') ||
+                    !value.contains('.')) {
+                  return 'Please enter a valid email';
+                } else {
+                  return null;
+                }
+              },
+              style: const TextStyle(color: Colors.black),
+              decoration: const InputDecoration(
+                hintText: 'Email',
+                hintStyle: TextStyle(color: Colors.black),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black)),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black)),
+                errorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red)),
               ),
             ),
-          ),
-          SizedBox(
-            height: dimensions.getScreenH(20),
-          ),
-          TextFormField(
-            textInputAction: TextInputAction.done,
-            onEditingComplete: () => _submitFrom(),
-            controller: _passwordController,
-            focusNode: _passwordFoucs,
-            obscureText: _obscureTrue,
-            keyboardType: TextInputType.visiblePassword,
-            validator: (value){
-              if(value!.isEmpty || value.length < 8){
-                return 'Please enter a valid password';
-              }else{
-                return null;
-              }
-            },
-            style: const TextStyle(color: Colors.black),
-            decoration: InputDecoration(
-              suffixIcon: GestureDetector(
-                onTap: (){
-                  setState(() {
-                    _obscureTrue =  !_obscureTrue;
-                  });
+            SizedBox(
+              height: dimensions.getScreenH(20),
+            ),
+            TextFormField(
+              textInputAction: TextInputAction.done,
+              onEditingComplete: () => _submitFrom(),
+              controller: _passwordController,
+              focusNode: _passwordFoucs,
+              obscureText: _obscureTrue,
+              keyboardType: TextInputType.visiblePassword,
+              validator: (value) {
+                if (value!.isEmpty || value.length < 8) {
+                  return 'Please enter a valid password';
+                } else {
+                  return null;
+                }
+              },
+              style: const TextStyle(color: Colors.black),
+              decoration: InputDecoration(
+                suffixIcon: GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      _obscureTrue = !_obscureTrue;
+                    });
+                  },
+                  child: Icon(
+                    _obscureTrue ? Icons.visibility : Icons.visibility_off,
+                    color: Colors.black,
+                  ),
+                ),
+                hintText: 'Password',
+                hintStyle: const TextStyle(color: Colors.black),
+                enabledBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black)),
+                focusedBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black)),
+                errorBorder: const UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.red)),
+              ),
+            ),
+            SizedBox(
+              height: dimensions.getScreenH(20),
+            ),
+            Align(
+              alignment: Alignment.topRight,
+              child: TextButton(
+                onPressed: () {
+                  CommonFunction.navigateToPage(
+                    context: context,
+                    routeName: ForgetPasswordScreen.routeName,
+                  );
                 },
-                child: Icon(
-                  _obscureTrue ? 
-                  Icons.visibility: Icons.visibility_off,
-                  color: Colors.black,
+                child: Text(
+                  'Forget Password?',
+                  maxLines: 1,
+                  style: TextStyle(
+                    color: Colors.lightBlue,
+                    fontSize: dimensions.getScreenW(18),
+                    decoration: TextDecoration.underline,
+                    fontStyle: FontStyle.italic,
+                  ),
                 ),
               ),
-              hintText: 'Password',
-              hintStyle: const TextStyle(color: Colors.black),
-              enabledBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black)
-              ),
-              focusedBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.black)
-              ),
-              errorBorder: const UnderlineInputBorder(
-                borderSide: BorderSide(color: Colors.red)
-              ),
             ),
-          ),
-        ],
-      )
-
-      );
+            SizedBox(
+              height: dimensions.getScreenH(20),
+            ),
+            ButtonWidget(
+              buttonText: 'Sign In',
+              press: _submitFrom,
+              isIcon: false,
+            ),
+          ],
+        ));
   }
 }

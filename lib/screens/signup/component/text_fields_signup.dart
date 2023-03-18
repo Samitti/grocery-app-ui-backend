@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/dimension.dart';
+import 'package:grocery/services/auth_services.dart';
+import 'package:grocery/widgets/button_widget.dart';
 
 class TextFieldSignUp extends StatefulWidget {
   const TextFieldSignUp({super.key});
@@ -31,11 +33,24 @@ class _TextFieldSignUpState extends State<TextFieldSignUp> {
     super.dispose();
   }
 
+  bool isLoading = false;
+
   void _submitForm() async {
     final isValid = _formKey.currentState!.validate();
     FocusScope.of(context).unfocus();
+    setState(() {
+      isLoading = true;
+    });
     if (isValid) {
       _formKey.currentState!.save();
+      AuthServices().createAccountWithEmailPassword(
+        email: _emailController.text.toLowerCase().trim(),
+        password: _passwordController.text.trim(),
+        context: context,
+      );
+      setState(() {
+        isLoading = false;
+      });
     }
   }
 
@@ -171,6 +186,18 @@ class _TextFieldSignUpState extends State<TextFieldSignUp> {
                   borderSide: BorderSide(color: Colors.red)),
             ),
           ),
+          SizedBox(
+            height: dimensions.getScreenH(20),
+          ),
+          isLoading == true
+              ? const Center(
+                  child: CircularProgressIndicator(),
+                )
+              : ButtonWidget(
+                  buttonText: 'Sign Up',
+                  press: _submitForm,
+                  isIcon: false,
+                ),
         ],
       ),
     );

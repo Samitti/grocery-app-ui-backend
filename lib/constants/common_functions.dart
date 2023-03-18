@@ -21,17 +21,19 @@ class CommonFunction {
     final AppDimensions dimensions = AppDimensions(context);
     return AppBar(
       // centerTitle: true,
-      leading: isLeading ? IconButton(
-        style: IconButton.styleFrom(
-            shape: RoundedRectangleBorder(
-                borderRadius:
-                    BorderRadius.circular(dimensions.getScreenW(20.0)))),
-        color: color,
-        onPressed: () {
-          Navigator.canPop(context) ? Navigator.pop(context) : null;
-        },
-        icon: const Icon(IconlyLight.arrowLeft2),
-      ) : null,
+      leading: isLeading
+          ? IconButton(
+              style: IconButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.circular(dimensions.getScreenW(20.0)))),
+              color: color,
+              onPressed: () {
+                Navigator.canPop(context) ? Navigator.pop(context) : null;
+              },
+              icon: const Icon(IconlyLight.arrowLeft2),
+            )
+          : null,
       elevation: 0,
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       title: TextWidget(
@@ -40,20 +42,25 @@ class CommonFunction {
         textSize: dimensions.getScreenW(22),
         isTitle: true,
       ),
-      actions: isSuffix ? [
-        IconButton(
-          onPressed: suffixPress,
-          icon: Icon(
-            IconlyBroken.delete,
-            color: color,
-          ),
-        )
-      ]: null,
+      actions: isSuffix
+          ? [
+              IconButton(
+                onPressed: suffixPress,
+                icon: Icon(
+                  IconlyBroken.delete,
+                  color: color,
+                ),
+              )
+            ]
+          : null,
     );
   }
 
-  
-  static Future<void> warningDialog({required BuildContext context, required String text, void Function()? press, required String subTitle}) async {
+  static Future<void> warningDialog(
+      {required BuildContext context,
+      required String text,
+      void Function()? press,
+      required String subTitle}) async {
     return showDialog(
       context: context,
       builder: (context) {
@@ -61,7 +68,7 @@ class CommonFunction {
           title: Row(
             children: [
               Image.asset(
-               "assets/images/warning-sign.png",
+                "assets/images/warning-sign.png",
                 height: AppDimensions(context).getScreenH(30),
                 width: AppDimensions(context).getScreenH(30),
                 fit: BoxFit.fill,
@@ -98,6 +105,51 @@ class CommonFunction {
                     TextStyle(fontSize: AppDimensions(context).getScreenW(18)),
               ),
             )
+          ],
+        );
+      },
+    );
+  }
+
+  static Future<void> errorDialog({
+    required BuildContext context,
+    required String subTitle,
+  }) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Image.asset(
+                "assets/images/warning-sign.png",
+                height: AppDimensions(context).getScreenH(30),
+                width: AppDimensions(context).getScreenH(30),
+                fit: BoxFit.fill,
+              ),
+              SizedBox(
+                width: AppDimensions(context).getScreenW(20),
+              ),
+              const Text('An error occurred'),
+            ],
+          ),
+          content: Text(
+            subTitle,
+            style: TextStyle(fontSize: AppDimensions(context).getScreenW(18)),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () {
+                if (Navigator.canPop(context)) {
+                  Navigator.pop(context);
+                }
+              },
+              child: Text(
+                "Ok",
+                style:
+                    TextStyle(fontSize: AppDimensions(context).getScreenW(18)),
+              ),
+            ),
           ],
         );
       },

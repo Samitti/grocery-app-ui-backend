@@ -6,7 +6,6 @@ import 'package:grocery/constants/utils.dart';
 import 'package:grocery/screens/forget/forget_password_screen.dart';
 import 'package:grocery/screens/signin/signin_screen.dart';
 import 'package:grocery/screens/signup/component/text_fields_signup.dart';
-import 'package:grocery/widgets/button_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
 class BodySignUpScreen extends StatelessWidget {
@@ -66,15 +65,7 @@ class BodySignUpScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ),
-          SizedBox(
-            height: dimensions.getScreenH(10),
-          ),
-          ButtonWidget(
-            buttonText: 'Sign Up',
-            press: () {},
-            isIcon: false,
-          ),
+          ),          
           SizedBox(
             height: dimensions.getScreenH(20),
           ),

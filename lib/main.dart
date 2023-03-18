@@ -9,7 +9,7 @@ import 'package:grocery/provider/dark_theme_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/provider/viewed_provider.dart';
 import 'package:grocery/provider/wishlist_provider.dart';
-import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
+import 'package:grocery/screens/signup/signup_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -70,7 +70,7 @@ class _MyAppState extends State<MyApp> {
                 title: 'Flutter Demo',
                 theme:
                     Styles.themeData(darkThemeProvider.getDarkTheme, context),
-                initialRoute: BottomBarScreen.routeName,
+                initialRoute: SignUpScreen.routeName,
                 routes: routes,
               );
             },

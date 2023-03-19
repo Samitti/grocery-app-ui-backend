@@ -6,6 +6,7 @@ import 'package:grocery/constants/utils.dart';
 import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
 import 'package:grocery/screens/signin/component/text_fields_signin.dart';
 import 'package:grocery/screens/signup/signup_screen.dart';
+import 'package:grocery/services/auth_services.dart';
 import 'package:grocery/widgets/button_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
@@ -47,7 +48,12 @@ class BodySignInScreen extends StatelessWidget {
           SizedBox(
             height: dimensions.getScreenH(10),
           ),
-          ButtonWidget(isIcon: true, press: () {}),
+          ButtonWidget(
+            isIcon: true,
+            press: () async{
+              AuthServices().googleSignIn(context: context);
+            },
+          ),
           SizedBox(
             height: dimensions.getScreenH(10),
           ),
@@ -95,7 +101,7 @@ class BodySignInScreen extends StatelessWidget {
             text: TextSpan(
               text: "Don't have an account?",
               style: TextStyle(
-                color: Colors.black,
+                color: color,
                 fontSize: dimensions.getScreenW(18),
               ),
               children: [

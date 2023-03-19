@@ -73,7 +73,7 @@ class BodySignUpScreen extends StatelessWidget {
             text: TextSpan(
               text: "Already a user?",
               style: TextStyle(
-                color: Colors.black,
+                color: color,
                 fontSize: dimensions.getScreenW(18),
               ),
               children: [

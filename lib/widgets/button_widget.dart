@@ -28,7 +28,7 @@ class ButtonWidget extends StatelessWidget {
             ? SizedBox(
                 height: dimensions.getScreenW(30),
                 width: dimensions.getScreenW(30),
-                child: Image.asset("assets/images/google.png"),
+                child: Image.asset("assets/images/google.png", ),
               ):  
             TextWidget(
                 text: buttonText!,

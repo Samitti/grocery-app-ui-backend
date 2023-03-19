@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
-import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
+import 'package:grocery/constants/utils.dart';
 import 'package:grocery/screens/forget/forget_password_screen.dart';
 import 'package:grocery/services/auth_services.dart';
 import 'package:grocery/widgets/button_widget.dart';
@@ -37,13 +37,13 @@ class _TextFieldSigninState extends State<TextFieldSignin> {
         password: _passwordController.text.trim(),
         context: context,
       );
-      Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
     }
   }
 
   @override
   Widget build(BuildContext context) {
     final AppDimensions dimensions = AppDimensions(context);
+    final Color color = Utils(context).color;
     return Form(
         key: _formKey,
         child: Column(
@@ -63,15 +63,15 @@ class _TextFieldSigninState extends State<TextFieldSignin> {
                   return null;
                 }
               },
-              style: const TextStyle(color: Colors.black),
-              decoration: const InputDecoration(
+              style: TextStyle(color: color),
+              decoration: InputDecoration(
                 hintText: 'Email',
-                hintStyle: TextStyle(color: Colors.black),
+                hintStyle: TextStyle(color: color),
                 enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black)),
+                    borderSide: BorderSide(color: color)),
                 focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black)),
-                errorBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: color)),
+                errorBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.red)),
               ),
             ),
@@ -92,7 +92,7 @@ class _TextFieldSigninState extends State<TextFieldSignin> {
                   return null;
                 }
               },
-              style: const TextStyle(color: Colors.black),
+              style: TextStyle(color: color),
               decoration: InputDecoration(
                 suffixIcon: GestureDetector(
                   onTap: () {
@@ -102,15 +102,15 @@ class _TextFieldSigninState extends State<TextFieldSignin> {
                   },
                   child: Icon(
                     _obscureTrue ? Icons.visibility : Icons.visibility_off,
-                    color: Colors.black,
+                    color: color,
                   ),
                 ),
                 hintText: 'Password',
-                hintStyle: const TextStyle(color: Colors.black),
-                enabledBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black)),
-                focusedBorder: const UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black)),
+                hintStyle: TextStyle(color: color),
+                enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: color)),
+                focusedBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: color)),
                 errorBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.red)),
               ),

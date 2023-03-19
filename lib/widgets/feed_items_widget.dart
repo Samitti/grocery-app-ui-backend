@@ -69,8 +69,8 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
             children: [
               FancyShimmerImage(
                 imageUrl: productModel.productImageUrl,
-                height: dimensions.getScreenH(75),
-                width: dimensions.getScreenH(75),
+                height: dimensions.getScreenH(70),
+                width: dimensions.getScreenH(70),
                 boxFit: BoxFit.fill,
               ),
               Padding(
@@ -192,7 +192,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                           );
                         },
                   child: TextWidget(
-                    color: Colors.black,
+                    color: color,
                     text: isInCart ? 'In Cart' : 'Add to Cart',
                     textSize: dimensions.getScreenW(18),
                     maxLines: 1,

@@ -54,8 +54,8 @@ class OnSaleWidget extends StatelessWidget {
                 children: [
                   FancyShimmerImage(
                     imageUrl: productModel.productImageUrl,
-                    height: dimensions.getScreenH(85),
-                    width: dimensions.getScreenH(85),
+                    height: dimensions.getScreenH(80),
+                    width: dimensions.getScreenH(80),
                     boxFit: BoxFit.fill,
                   ),
                   Column(

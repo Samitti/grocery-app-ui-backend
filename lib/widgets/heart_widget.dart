@@ -27,7 +27,9 @@ class HeartWidget extends StatelessWidget {
       onTap: () {
         final User? user = firebaseAuth.currentUser;
         if (user == null) {
-          CommonFunction.errorDialog(context: context, subTitle: 'Please Login First');
+          CommonFunction.errorToast(
+            error: 'Please Login First',
+          );
           return;
         }
         wishlistProvider.addRemoveProductsToWishlist(productId: productId);

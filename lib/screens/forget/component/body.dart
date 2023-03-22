@@ -58,9 +58,9 @@ class _BodyForgetPasswordScreenState extends State<BodyForgetPasswordScreen> {
               SizedBox(
                 height: dimensions.getScreenH(20),
               ),
-              const TextWidget(
+              TextWidget(
                 text: 'Forget password',
-                color: Colors.black,
+                color: color,
                 textSize: 30,
               ),
               SizedBox(
@@ -68,17 +68,17 @@ class _BodyForgetPasswordScreenState extends State<BodyForgetPasswordScreen> {
               ),
               TextField(
                 controller: _emailController,
-                style: const TextStyle(color: Colors.black),
-                decoration: const InputDecoration(
+                style: TextStyle(color: color),
+                decoration: InputDecoration(
                   hintText: 'Email',
-                  hintStyle: TextStyle(color: Colors.black),
+                  hintStyle: TextStyle(color: color),
                   enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
+                    borderSide: BorderSide(color: color),
                   ),
                   focusedBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black),
+                    borderSide: BorderSide(color: color),
                   ),
-                  errorBorder: UnderlineInputBorder(
+                  errorBorder: const UnderlineInputBorder(
                     borderSide: BorderSide(color: Colors.red),
                   ),
                 ),

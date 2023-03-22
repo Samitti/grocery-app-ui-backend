@@ -197,9 +197,9 @@ class _ContentState extends State<Content> {
                         : () {
                             final User? user = firebaseAuth.currentUser;
                             if (user == null) {
-                              CommonFunction.errorDialog(
-                                  context: context,
-                                  subTitle: 'Please Login First');
+                              CommonFunction.errorToast(
+                                error: 'Please Login First',
+                              );
                               return;
                             }
                             cartProvider.addProductsToCart(

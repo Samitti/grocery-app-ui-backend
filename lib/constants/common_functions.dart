@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/widgets/text_widget.dart';
@@ -20,7 +21,6 @@ class CommonFunction {
     final Color color = Utils(context).color;
     final AppDimensions dimensions = AppDimensions(context);
     return AppBar(
-      // centerTitle: true,
       leading: isLeading
           ? IconButton(
               style: IconButton.styleFrom(
@@ -56,11 +56,12 @@ class CommonFunction {
     );
   }
 
-  static Future<void> warningDialog(
-      {required BuildContext context,
-      required String text,
-      void Function()? press,
-      required String subTitle}) async {
+  static Future<void> warningDialog({
+    required BuildContext context,
+    required String text,
+    void Function()? press,
+    required String subTitle,
+  }) async {
     return showDialog(
       context: context,
       builder: (context) {
@@ -111,48 +112,15 @@ class CommonFunction {
     );
   }
 
-  static Future<void> errorDialog({
-    required BuildContext context,
-    required String subTitle,
-  }) async {
-    return showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Row(
-            children: [
-              Image.asset(
-                "assets/images/warning-sign.png",
-                height: AppDimensions(context).getScreenH(30),
-                width: AppDimensions(context).getScreenH(30),
-                fit: BoxFit.fill,
-              ),
-              SizedBox(
-                width: AppDimensions(context).getScreenW(20),
-              ),
-              const Text('An error occurred'),
-            ],
-          ),
-          content: Text(
-            subTitle,
-            style: TextStyle(fontSize: AppDimensions(context).getScreenW(18)),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                if (Navigator.canPop(context)) {
-                  Navigator.pop(context);
-                }
-              },
-              child: Text(
-                "Ok",
-                style:
-                    TextStyle(fontSize: AppDimensions(context).getScreenW(18)),
-              ),
-            ),
-          ],
-        );
-      },
+  static errorToast({required String error}) {
+    Fluttertoast.showToast(
+      msg: error,
+      toastLength: Toast.LENGTH_LONG,
+      gravity: ToastGravity.BOTTOM,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0,
     );
   }
 }

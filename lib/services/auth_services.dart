@@ -19,19 +19,21 @@ class AuthServices {
       Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        CommonFunction.errorDialog(
-            context: context, subTitle: 'The password provided is too weak.');
+        CommonFunction.errorToast(
+          error: 'The password provided is too weak.',
+        );
       } else if (e.code == 'email-already-in-use') {
-        CommonFunction.errorDialog(
-            context: context,
-            subTitle: 'The account already exists for that email.');
+        CommonFunction.errorToast(
+          error: 'The account already exists for that email.',
+        );
       } else if (e.code == 'operation-not-allowed') {
-        CommonFunction.errorDialog(
-            context: context,
-            subTitle: 'There is a problem with auth service config');
+        CommonFunction.errorToast(
+          error: 'There is a problem with auth service config.',
+        );
       } else {
-        CommonFunction.errorDialog(context: context, subTitle: '$e');
-        rethrow;
+        CommonFunction.errorToast(
+          error: '$e',
+        );
       }
     }
   }
@@ -49,21 +51,25 @@ class AuthServices {
       Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'wrong-password') {
-        CommonFunction.errorDialog(
-            context: context, subTitle: 'The password provided is wrong.');
+        CommonFunction.errorToast(
+          error: 'The password provided is wrong.',
+        );
       } else if (e.code == 'user-not-found') {
-        CommonFunction.errorDialog(
-            context: context, subTitle: 'No user found with this email.');
+        CommonFunction.errorToast(
+          error: 'No user found with this email.',
+        );
       } else if (e.code == 'user-disabled') {
-        CommonFunction.errorDialog(
-            context: context, subTitle: 'User disabled.');
+        CommonFunction.errorToast(
+          error: 'User disabled.',
+        );
       } else if (e.code == 'invalid-email') {
-        CommonFunction.errorDialog(
-            context: context, subTitle: 'Email address is invalid.');
+        CommonFunction.errorToast(
+          error: 'Email address is invalid.',
+        );
       } else {
-        CommonFunction.errorDialog(
-            context: context, subTitle: 'Login failed. Please try again.');
-        rethrow;
+        CommonFunction.errorToast(
+          error: 'Login failed. Please try again.',
+        );
       }
     }
   }
@@ -72,8 +78,9 @@ class AuthServices {
     try {
       await firebaseAuth.signOut();
     } catch (e) {
-      CommonFunction.errorDialog(
-          context: context, subTitle: 'Logout failed. Please try again.');
+      CommonFunction.errorToast(
+        error: 'Logout failed. Please try again.',
+      );
     }
   }
 
@@ -96,11 +103,13 @@ class AuthServices {
         ),
       );
     } on FirebaseException catch (error) {
-      CommonFunction.errorDialog(
-          context: context, subTitle: '${error.message}');
+       CommonFunction.errorToast(
+        error: '${error.message}',
+      );
     } catch (error) {
-      CommonFunction.errorDialog(
-          context: context, subTitle: '$error');
+      CommonFunction.errorToast(
+        error:  '$error',
+      );
     }
   }
 }

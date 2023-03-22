@@ -6,7 +6,7 @@ import 'package:grocery/constants/utils.dart';
 import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
 import 'package:grocery/screens/signin/component/text_fields_signin.dart';
 import 'package:grocery/screens/signup/signup_screen.dart';
-import 'package:grocery/services/auth_services.dart';
+import 'package:grocery/services/auth/auth_services.dart';
 import 'package:grocery/widgets/button_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 

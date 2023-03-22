@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/constants/common_functions.dart';
@@ -8,7 +7,7 @@ import 'package:grocery/screens/order/order_screen.dart';
 import 'package:grocery/screens/signin/signin_screen.dart';
 import 'package:grocery/screens/viewed/viewed_screen.dart';
 import 'package:grocery/screens/wishlist/wishlist_screen.dart';
-import 'package:grocery/services/auth_services.dart';
+import 'package:grocery/services/auth/auth_services.dart';
 import 'package:grocery/widgets/theme_button.dart';
 import 'package:grocery/screens/user/components/list_tile_profile.dart';
 
@@ -23,7 +22,6 @@ class TilesUser extends StatefulWidget {
 
 class _TilesUserState extends State<TilesUser> {
   final TextEditingController textController = TextEditingController();
-  final User? user = firebaseAuth.currentUser;
   @override
   Widget build(BuildContext context) {
     final AppDimensions dimensions = AppDimensions(context);
@@ -73,12 +71,12 @@ class _TilesUserState extends State<TilesUser> {
         const ThemeButton(),
         SizedBox(height: dimensions.getScreenH(5)),
         ListTileProfile(
-          leading: user == null
+          leading: firebaseAuth.currentUser == null
               ? const Icon(IconlyLight.login)
               : const Icon(IconlyLight.logout),
-          title: user == null ? "Login" : "Logout",
+          title: firebaseAuth.currentUser == null ? "Login" : "Logout",
           press: () async {
-            if (user == null) {
+            if (firebaseAuth.currentUser == null) {
               CommonFunction.navigateToPage(
                   context: context, routeName: SignInScreen.routeName);
               return;

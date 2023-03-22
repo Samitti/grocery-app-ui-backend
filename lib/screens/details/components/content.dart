@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -195,8 +194,7 @@ class _ContentState extends State<Content> {
                     press: isInCart
                         ? null
                         : () {
-                            final User? user = firebaseAuth.currentUser;
-                            if (user == null) {
+                            if (firebaseAuth.currentUser == null) {
                               CommonFunction.errorToast(
                                 error: 'Please Login First',
                               );

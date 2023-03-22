@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
-import 'package:grocery/services/auth_services.dart';
+import 'package:grocery/services/auth/auth_services.dart';
 import 'package:grocery/widgets/button_widget.dart';
 
 class TextFieldSignUp extends StatefulWidget {
@@ -40,6 +40,8 @@ class _TextFieldSignUpState extends State<TextFieldSignUp> {
     if (isValid) {
       _formKey.currentState!.save();
       AuthServices().createAccountWithEmailPassword(
+        name: _nameController.text,
+        address: _addressController.text,
         email: _emailController.text.toLowerCase().trim(),
         password: _passwordController.text.trim(),
         context: context,

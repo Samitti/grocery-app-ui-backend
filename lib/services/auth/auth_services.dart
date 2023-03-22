@@ -4,18 +4,22 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/firebase_constant.dart';
 import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
+import 'package:grocery/services/auth/auth_firestore.dart';
 
 class AuthServices {
-  void createAccountWithEmailPassword({
-    required String email,
-    required String password,
-    required context,
-  }) async {
+  void createAccountWithEmailPassword(
+      {required String email,
+      required String password,
+      required context,
+      required String name,
+      required String address}) async {
     try {
       await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );
+      AuthFireStore()
+          .saveDataToFireStore(name: name, email: email, address: address);
       Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -85,30 +89,34 @@ class AuthServices {
   }
 
   Future<void> googleSignIn({required context}) async {
-    final FirebaseAuth auth = FirebaseAuth.instance;
-    final GoogleSignIn googleSignIn = GoogleSignIn();
-    final GoogleSignInAccount? googleSignInAccount =
-        await googleSignIn.signIn();
-    final GoogleSignInAuthentication googleSignInAuthentication =
-        await googleSignInAccount!.authentication;
-    final OAuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleSignInAuthentication.accessToken,
-      idToken: googleSignInAuthentication.idToken,
-    );
     try {
+      final FirebaseAuth auth = FirebaseAuth.instance;
+      final GoogleSignIn googleSignIn = GoogleSignIn();
+      final GoogleSignInAccount? googleSignInAccount =
+          await googleSignIn.signIn();
+      final GoogleSignInAuthentication googleSignInAuthentication =
+          await googleSignInAccount!.authentication;
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        accessToken: googleSignInAuthentication.accessToken,
+        idToken: googleSignInAuthentication.idToken,
+      );
       await auth.signInWithCredential(credential);
+      AuthFireStore().saveDataToFireStore(
+        name: googleSignInAccount.displayName!,
+        email: googleSignInAccount.email,
+      );
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (context) => const BottomBarScreen(),
         ),
       );
     } on FirebaseException catch (error) {
-       CommonFunction.errorToast(
+      CommonFunction.errorToast(
         error: '${error.message}',
       );
     } catch (error) {
       CommonFunction.errorToast(
-        error:  '$error',
+        error: '$error',
       );
     }
   }

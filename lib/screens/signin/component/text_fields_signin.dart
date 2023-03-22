@@ -3,7 +3,7 @@ import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/screens/forget/forget_password_screen.dart';
-import 'package:grocery/services/auth_services.dart';
+import 'package:grocery/services/auth/auth_services.dart';
 import 'package:grocery/widgets/button_widget.dart';
 
 class TextFieldSignin extends StatefulWidget {

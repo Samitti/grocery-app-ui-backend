@@ -7,12 +7,13 @@ import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
 import 'package:grocery/services/auth/auth_firestore.dart';
 
 class AuthServices {
-  void createAccountWithEmailPassword(
-      {required String email,
-      required String password,
-      required context,
-      required String name,
-      required String address}) async {
+  void createAccountWithEmailPassword({
+    required String email,
+    required String password,
+    required context,
+    required String name,
+    required String address,
+  }) async {
     try {
       await firebaseAuth.createUserWithEmailAndPassword(
         email: email,
@@ -103,7 +104,7 @@ class AuthServices {
       await auth.signInWithCredential(credential);
       AuthFireStore().saveDataToFireStore(
         name: googleSignInAccount.displayName!,
-        email: googleSignInAccount.email,
+        email: googleSignInAccount.email,        
       );
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(

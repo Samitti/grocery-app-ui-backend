@@ -5,7 +5,7 @@ class AuthFireStore {
   void saveDataToFireStore({
     required String name,
     required String email,
-    String? address
+    String? address,
   }) async {
     await FirebaseFirestore.instance
         .collection('users')

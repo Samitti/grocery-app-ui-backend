@@ -14,7 +14,7 @@ class BodyWishListScreen extends StatelessWidget {
     final wishlistItemList =
         wishlistProvider.getwhislistItems.values.toList().reversed.toList();
     if (wishlistItemList.isEmpty) {
-      return const EmptyWidget(
+      return const EmptyWidgetScreen(
         buttonText: 'Add a wish',
         imgPath: 'assets/images/wishlist.png',
         subTitle: 'Explore more and shortlist',

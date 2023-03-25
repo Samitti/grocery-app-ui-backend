@@ -48,20 +48,11 @@ class BodySignInScreen extends StatelessWidget {
           SizedBox(
             height: dimensions.getScreenH(10),
           ),
-          ButtonWidget(
-            isIcon: true,
-            press: () async{
-              AuthServices().googleSignIn(context: context);
-            },
-          ),
-          SizedBox(
-            height: dimensions.getScreenH(10),
-          ),
-          Row(
+                    Row(
             children: [
-              const Expanded(
+              Expanded(
                 child: Divider(
-                  color: Colors.black,
+                  color: color,
                   thickness: 2,
                 ),
               ),
@@ -70,18 +61,27 @@ class BodySignInScreen extends StatelessWidget {
               ),
               TextWidget(
                   text: 'OR',
-                  color: Colors.black,
+                  color: color,
                   textSize: dimensions.getScreenW(20)),
               SizedBox(
                 width: dimensions.getScreenW(10),
               ),
-              const Expanded(
+              Expanded(
                 child: Divider(
-                  color: Colors.black,
+                  color: color,
                   thickness: 2,
                 ),
               ),
             ],
+          ),
+          SizedBox(
+            height: dimensions.getScreenH(10),
+          ),
+          ButtonWidget(
+            isIcon: true,
+            press: () {
+              AuthServices().signUpWithGoogle(context: context);
+            },
           ),
           SizedBox(
             height: dimensions.getScreenH(10),

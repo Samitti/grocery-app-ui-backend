@@ -5,6 +5,7 @@ import 'package:grocery/screens/category%20list/category_list_screen.dart';
 import 'package:grocery/screens/category/categories_screen.dart';
 import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/screens/feed/feed_screen.dart';
+import 'package:grocery/screens/fetch/fetch_screen.dart';
 import 'package:grocery/screens/forget/forget_password_screen.dart';
 import 'package:grocery/screens/home/home_screen.dart';
 import 'package:grocery/screens/on%20sale/on_sale_screen.dart';
@@ -31,5 +32,5 @@ final Map<String, WidgetBuilder> routes = {
   SignUpScreen.routeName : (context) => const SignUpScreen(),
   ForgetPasswordScreen.routeName : (context) => const ForgetPasswordScreen(),
   CategoryListScreen.routeName : (context) => const CategoryListScreen(),
-
+  FetchScreen.routeName : (context) => const FetchScreen(),
 };

@@ -65,7 +65,7 @@ class BodySignUpScreen extends StatelessWidget {
                 ),
               ),
             ),
-          ),          
+          ),
           SizedBox(
             height: dimensions.getScreenH(20),
           ),

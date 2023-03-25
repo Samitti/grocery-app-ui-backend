@@ -1,17 +1,16 @@
-// ignore_for_file: unnecessary_null_comparison
-
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/firebase_constant.dart';
+import 'package:grocery/models/user_model.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
 import 'package:grocery/screens/order/order_screen.dart';
 import 'package:grocery/screens/signin/signin_screen.dart';
 import 'package:grocery/screens/viewed/viewed_screen.dart';
 import 'package:grocery/screens/wishlist/wishlist_screen.dart';
+import 'package:grocery/services/auth/auth_firestore.dart';
 import 'package:grocery/services/auth/auth_services.dart';
 import 'package:grocery/widgets/theme_button.dart';
 import 'package:grocery/screens/user/components/list_tile_profile.dart';
@@ -27,20 +26,30 @@ class TilesUser extends StatefulWidget {
 }
 
 class _TilesUserState extends State<TilesUser> {
+  UserModel? _user;
+
   @override
   void dispose() {
     addressController.dispose();
     super.dispose();
   }
 
-  String? _email;
-  String? _name;
   String? address;
-  final User? user = firebaseAuth.currentUser;
   @override
   void initState() {
-    getUserData();
+    _loadUserData();
     super.initState();
+  }
+
+  Future<void> _loadUserData() async {
+    UserModel? user =
+        await AuthFireStore.getUserData(firebaseAuth.currentUser!.uid);
+    if (user != null) {
+      setState(() {
+        _user = user;
+        address = user.address;
+      });
+    }
   }
 
   void updateAddress({required context}) async {
@@ -49,7 +58,7 @@ class _TilesUserState extends State<TilesUser> {
           .collection('users')
           .doc(firebaseAuth.currentUser!.uid)
           .update({
-        'shipping-address': addressController.text,
+        'address': addressController.text,
       });
       Navigator.pop(context);
       setState(() {
@@ -58,32 +67,6 @@ class _TilesUserState extends State<TilesUser> {
       CommonFunction.errorToast(error: "Updated Successfully");
     } catch (err) {
       // handle ecxeptions
-    }
-  }
-
-  Future<void> getUserData() async {
-    setState(() {});
-    if (firebaseAuth.currentUser == null) {
-      setState(() {});
-      return;
-    }
-    try {
-      final DocumentSnapshot userDoc = await FirebaseFirestore.instance
-          .collection('users')
-          .doc(firebaseAuth.currentUser!.uid)
-          .get();
-      if (userDoc == null) {
-        return;
-      } else {
-        _email = userDoc.get(constEmail);
-        _name = userDoc.get(constName);
-        address = userDoc.get(constAddress);
-        addressController.text = userDoc.get(constAddress);
-      }
-    } catch (error) {
-      // handle
-    } finally {
-      setState(() {});
     }
   }
 
@@ -213,13 +196,13 @@ class _TilesUserState extends State<TilesUser> {
               fontSize: AppDimensions(context).getScreenW(30)),
           children: [
             TextSpan(
-                text: _name == null ? 'Your Name\n' : "${_name!}\n",
+                text: _user == null ? 'Your Name\n' : "${_user?.name}\n",
                 style: TextStyle(
                   color: color,
                   fontSize: AppDimensions(context).getScreenW(30),
                 )),
             TextSpan(
-              text: _email == null ? 'Your Email\n' : "${_email!}\n",
+              text: _user == null ? 'Your Email\n' : "${_user?.email}\n",
               style: TextStyle(
                 fontSize: AppDimensions(context).getScreenW(18),
                 color: color,

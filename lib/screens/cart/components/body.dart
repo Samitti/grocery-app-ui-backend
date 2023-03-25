@@ -12,7 +12,7 @@ class BodyCartScreen extends StatelessWidget {
     final cartProvider = Provider.of<CartProvider>(context);
     final cartItemList = cartProvider.getcartItems.values.toList();
     if (cartItemList.isEmpty) {
-      return const EmptyWidget(
+      return const EmptyWidgetScreen(
         buttonText: 'Brower Products',
         imgPath: "assets/images/cart.png",
         subTitle: 'No items in your cart yet',

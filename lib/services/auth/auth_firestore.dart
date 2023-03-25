@@ -1,23 +1,34 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:grocery/constants/firebase_constant.dart';
+import 'package:grocery/constants/common_functions.dart';
+import 'package:grocery/models/user_model.dart';
 
 class AuthFireStore {
-  void saveDataToFireStore({
-    required String name,
-    required String email,
-    String? address,
-  }) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(firebaseAuth.currentUser!.uid)
-        .set({
-      'id': firebaseAuth.currentUser!.uid,
-      'name': name,
-      'email': email,
-      'shipping-address': address,
-      'userWish': [],
-      'userCart': [],
-      'createdAt': Timestamp.now(),
-    });
+  static Future<UserModel?> getUserData(String id) async {
+    try {
+      DocumentSnapshot doc =
+          await FirebaseFirestore.instance.collection('users').doc(id).get();
+      if (!doc.exists) {
+        return null;
+      }
+      return UserModel.fromFirestore(doc);
+    } on FirebaseException {
+      CommonFunction.errorToast(
+        error: 'Error Loading Data',
+      );
+      return null;
+    }
+  }
+
+  static Future<void> setUserData(String id, UserModel user) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(id)
+          .set(user.toMap());
+    } on FirebaseException {
+      CommonFunction.errorToast(
+        error: 'Error Setting Data',
+      );
+    }
   }
 }

@@ -5,12 +5,12 @@ import 'package:grocery/constants/utils.dart';
 import 'package:grocery/screens/feed/feed_screen.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
-class EmptyWidget extends StatelessWidget {
+class EmptyWidgetScreen extends StatelessWidget {
   final String imgPath;
   final String title;
   final String subTitle;
   final String buttonText;
-  const EmptyWidget({super.key, required this.imgPath, required this.title, required this.subTitle, required this.buttonText});
+  const EmptyWidgetScreen({super.key, required this.imgPath, required this.title, required this.subTitle, required this.buttonText});
 
   @override
   Widget build(BuildContext context) {

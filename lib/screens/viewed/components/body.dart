@@ -13,7 +13,7 @@ class BodyViewedScreen extends StatelessWidget {
     final viewedItemList =
         viewedProvider.getviewedItems.values.toList().reversed.toList();
     if (viewedItemList.isEmpty) {
-      return const EmptyWidget(
+      return const EmptyWidgetScreen(
         buttonText: 'Shop Now',
         imgPath: 'assets/images/history.png',
         subTitle: 'No products has been reviewed yet!',

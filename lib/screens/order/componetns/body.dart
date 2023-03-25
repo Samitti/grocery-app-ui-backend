@@ -11,7 +11,7 @@ class BodyOrderScreen extends StatelessWidget {
     const bool isEmpty = true;
     final Color color = Utils(context).color;
     if (isEmpty) {
-      return const EmptyWidget(
+      return const EmptyWidgetScreen(
             buttonText: 'Shop Now',
             imgPath: 'assets/images/cart.png',
             subTitle: 'Please order your first',

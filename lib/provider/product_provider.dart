@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery/constants/firebase_constant.dart';
 import 'package:grocery/models/product_model.dart';
 
 class ProductProvider with ChangeNotifier {
@@ -15,26 +16,26 @@ class ProductProvider with ChangeNotifier {
   }
 
   Future<void> fetchProducts() async {
-    await FirebaseFirestore.instance
-        .collection('products')
+    await firebaseFirestore
+        .collection(constProduct)
         .get()
         .then((QuerySnapshot productSnapshot) {
       for (var element in productSnapshot.docs) {
         _products.insert(
             0,
             ProductModel(
-              productid: element.get('id'),
-              productTitle: element.get('title'),
-              productImageUrl: element.get('imageUrl'),
-              productCategory: element.get('productCategory'),
+              productid: element.get(constProductId),
+              productTitle: element.get(constProductTitle),
+              productImageUrl: element.get(constProductImage),
+              productCategory: element.get(constProductCategory),
               productPrice: double.parse(
-                element.get('price').toString(),
+                element.get(constProductPrice).toString(),
               ),
               productSalePrice: double.parse(
-                element.get('salePrice').toString(),
+                element.get(constProductPriceSale).toString(),
               ),
-              productIsOnSale: element.get('isOnSale'),
-              productIsPiece: element.get('isPiece'),
+              productIsOnSale: element.get(constProductIsOnSale),
+              productIsPiece: element.get(constProductIsPiece),
             ));
       }
     });

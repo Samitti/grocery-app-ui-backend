@@ -121,7 +121,7 @@ class AuthServices {
       );
       await firebaseAuth.signInWithCredential(credential);
       DocumentSnapshot doc = await FirebaseFirestore.instance
-          .collection('users')
+          .collection(constUser)
           .doc(firebaseAuth.currentUser!.uid)
           .get();
       if (!doc.exists) {
@@ -138,10 +138,7 @@ class AuthServices {
         );
         Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
         return;
-      } else {
-        // CommonFunction.errorToast(
-        //   error: 'User Already Found! Please Signin',
-        // );
+      } else { 
         Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
         return;
       }

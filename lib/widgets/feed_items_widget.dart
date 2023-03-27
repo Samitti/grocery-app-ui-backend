@@ -10,6 +10,7 @@ import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/screens/home/components/price.dart';
+import 'package:grocery/services/products/products_firestore.dart';
 import 'package:grocery/widgets/heart_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
@@ -177,17 +178,18 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                   ),
                   onPressed: isInCart
                       ? null
-                      : () {
+                      : () async{
                           if (firebaseAuth.currentUser == null) {
                             CommonFunction.errorToast(
                               error: 'Please Login First',
                             );
                             return;
                           }
-                          cartProvider.addProductsToCart(
+                          await ProductFireStore.addProductToUserCart(
                             productId: productModel.productid,
                             quantity: int.parse(_quantityController.text),
                           );
+                          await cartProvider.fetchCart();
                         },
                   child: TextWidget(
                     color: color,

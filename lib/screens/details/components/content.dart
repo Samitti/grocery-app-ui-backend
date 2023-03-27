@@ -10,6 +10,7 @@ import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/cart/components/add_sub_button.dart';
 import 'package:grocery/screens/details/components/upper_part.dart';
+import 'package:grocery/services/products/products_firestore.dart';
 import 'package:grocery/widgets/green_widget.dart';
 import 'package:grocery/widgets/heart_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
@@ -48,8 +49,7 @@ class _ContentState extends State<Content> {
     final wishlistProvider = Provider.of<WishlistProvider>(context);
     final currentProduct = productProvider.findById(productId);
     final cartProvider = Provider.of<CartProvider>(context);
-    bool isInCart =
-        cartProvider.getcartItems.containsKey(currentProduct.productid);
+    bool? isInCart = cartProvider.getcartItems.containsKey(currentProduct.productid);
     final double price = currentProduct.productIsOnSale
         ? currentProduct.productSalePrice
         : currentProduct.productPrice;
@@ -193,17 +193,18 @@ class _ContentState extends State<Content> {
                     text: isInCart ? 'In Cart' : 'Add to Cart',
                     press: isInCart
                         ? null
-                        : () {
+                        : () async {
                             if (firebaseAuth.currentUser == null) {
                               CommonFunction.errorToast(
                                 error: 'Please Login First',
                               );
                               return;
                             }
-                            cartProvider.addProductsToCart(
+                            await ProductFireStore.addProductToUserCart(
                               productId: currentProduct.productid,
                               quantity: int.parse(_quantityController.text),
                             );
+                            await cartProvider.fetchCart();
                           },
                   )
                 ],

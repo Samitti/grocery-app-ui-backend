@@ -10,6 +10,7 @@ import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/details/details_screen.dart';
 import 'package:grocery/screens/home/components/price.dart';
+import 'package:grocery/services/products/products_firestore.dart';
 import 'package:grocery/widgets/heart_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
@@ -73,17 +74,18 @@ class OnSaleWidget extends StatelessWidget {
                           GestureDetector(
                             onTap: isInCart
                                 ? null
-                                : () {                                    
+                                : () async{                                    
                                     if (firebaseAuth.currentUser == null) {
                                       CommonFunction.errorToast(
                                         error: 'Please Login First',
                                       );
                                       return;
                                     }
-                                    cartProvider.addProductsToCart(
+                                    await ProductFireStore.addProductToUserCart(
                                       productId: productModel.productid,
                                       quantity: 1,
                                     );
+                                    await cartProvider.fetchCart();
                                   },
                             child: Icon(
                               isInCart ? IconlyBold.bag2 : IconlyLight.bag2,

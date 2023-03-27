@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
 import 'package:grocery/screens/fetch/components/body.dart';
@@ -20,10 +21,12 @@ class _FetchScreenState extends State<FetchScreen> {
   }
 
   void fetechingData({required context}) {
-    Future.delayed(const Duration(microseconds: 5), () async{
-      final productsProvider =
+    Future.delayed(const Duration(microseconds: 5), () async {
+      final productProvider =
           Provider.of<ProductProvider>(context, listen: false);
-      await productsProvider.fetchProducts();
+      final cartProvider = Provider.of<CartProvider>(context, listen: false);
+      await productProvider.fetchProducts();
+      await cartProvider.fetchCart();
       Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
     });
   }

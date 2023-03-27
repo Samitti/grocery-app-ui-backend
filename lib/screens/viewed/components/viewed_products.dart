@@ -9,6 +9,7 @@ import 'package:grocery/models/viewed_model.dart';
 import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/screens/details/details_screen.dart';
+import 'package:grocery/services/products/products_firestore.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
 
@@ -83,17 +84,18 @@ class _ViewedProductState extends State<ViewedProduct> {
                 borderRadius: BorderRadius.circular(dimensions.getScreenW(8)),
                 onTap: isInCart
                     ? null
-                    : () {
+                    : () async {
                         if (firebaseAuth.currentUser == null) {
                           CommonFunction.errorToast(
                             error: 'Please Login First',
                           );
                           return;
                         }
-                        cartProvider.addProductsToCart(
+                        await ProductFireStore.addProductToUserCart(
                           productId: currentProduct.productid,
                           quantity: 1,
                         );
+                        await cartProvider.fetchCart();
                       },
                 child: Padding(
                     padding: EdgeInsets.all(dimensions.getScreenW(8)),

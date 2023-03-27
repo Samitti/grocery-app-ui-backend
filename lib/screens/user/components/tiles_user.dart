@@ -6,6 +6,7 @@ import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/firebase_constant.dart';
 import 'package:grocery/models/user_model.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
+import 'package:grocery/screens/forget/forget_password_screen.dart';
 import 'package:grocery/screens/order/order_screen.dart';
 import 'package:grocery/screens/signin/signin_screen.dart';
 import 'package:grocery/screens/viewed/viewed_screen.dart';
@@ -42,6 +43,9 @@ class _TilesUserState extends State<TilesUser> {
   }
 
   Future<void> _loadUserData() async {
+    if (firebaseAuth.currentUser == null) {
+      return;
+    }
     UserModel? user =
         await AuthFireStore.getUserData(firebaseAuth.currentUser!.uid);
     if (user != null) {
@@ -126,7 +130,10 @@ class _TilesUserState extends State<TilesUser> {
         ListTileProfile(
           leading: const Icon(IconlyBold.unlock),
           title: "Forget Password",
-          press: () {},
+          press: () {
+            CommonFunction.navigateToPage(
+                context: context, routeName: ForgetPasswordScreen.routeName);
+          },
         ),
         const ThemeButton(),
         SizedBox(height: dimensions.getScreenH(5)),

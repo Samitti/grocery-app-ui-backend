@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/provider/cart_provider.dart';
-import 'package:grocery/widgets/empty_screen_widget.dart';
+import 'package:grocery/widgets/empty_screen.dart';
 import 'package:grocery/screens/cart/components/full_cart.dart';
 import 'package:provider/provider.dart';
 

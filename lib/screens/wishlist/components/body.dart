@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/wishlist/components/product_container.dart';
-import 'package:grocery/widgets/empty_screen_widget.dart';
+import 'package:grocery/widgets/empty_screen.dart';
 import 'package:provider/provider.dart';
 
 class BodyWishListScreen extends StatelessWidget {

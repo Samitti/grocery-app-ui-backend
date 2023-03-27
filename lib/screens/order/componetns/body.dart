@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/screens/order/componetns/tiles_order.dart';
-import 'package:grocery/widgets/empty_screen_widget.dart';
+import 'package:grocery/widgets/empty_screen.dart';
 
 class BodyOrderScreen extends StatelessWidget {
   const BodyOrderScreen({super.key});

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/provider/viewed_provider.dart';
 import 'package:grocery/screens/viewed/components/viewed_products.dart';
-import 'package:grocery/widgets/empty_screen_widget.dart';
+import 'package:grocery/widgets/empty_screen.dart';
 import 'package:provider/provider.dart';
 
 class BodyViewedScreen extends StatelessWidget {

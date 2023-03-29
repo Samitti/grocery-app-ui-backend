@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/firebase_constant.dart';
-import 'package:grocery/provider/wishlist_provider.dart';
-import 'package:provider/provider.dart';
+import 'package:grocery/services/products/products_firestore.dart';
 
 class HeartWidget extends StatelessWidget {
   const HeartWidget({
@@ -22,7 +21,6 @@ class HeartWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final wishlistProvider = Provider.of<WishlistProvider>(context);
     return GestureDetector(
       onTap: () {
         final User? user = firebaseAuth.currentUser;
@@ -32,7 +30,7 @@ class HeartWidget extends StatelessWidget {
           );
           return;
         }
-        wishlistProvider.addRemoveProductsToWishlist(productId: productId);
+        ProductFireStore.addProductToUserWishlist(productId: productId);
       },
       child: Icon(
         isInWishlist! ? IconlyBold.heart : IconlyLight.heart,

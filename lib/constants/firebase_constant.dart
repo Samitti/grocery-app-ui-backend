@@ -13,7 +13,7 @@ const String constUserName = "name";
 const String constUserEmail = "email";
 const String constUserAddress = "shipping-address";
 const String constUserCart = "userCart";
-const String constUserWihslist = "userWish";
+const String constUserWishlist = "userWish";
 
 // product constant
 const String constProductId = "id";
@@ -30,3 +30,7 @@ const String constProductIsPiece = "isPiece";
 const String constCartId = "cartId";
 const String constCartProductId = "productCartId";
 const String constCartQuantity = "productCartQuantity";
+
+// whislist constant
+const String constWishtId = "wishId";
+const String constProductWishId = "productWishId";

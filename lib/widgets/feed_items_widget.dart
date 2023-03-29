@@ -69,13 +69,13 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
             children: [
               FancyShimmerImage(
                 imageUrl: productModel.productImageUrl,
-                height: dimensions.getScreenH(70),
-                width: dimensions.getScreenH(70),
+                height: dimensions.getScreenH(72),
+                width: dimensions.getScreenH(68),
                 boxFit: BoxFit.fill,
               ),
               Padding(
                 padding: EdgeInsets.symmetric(
-                  horizontal: dimensions.getScreenW(10),
+                  horizontal: dimensions.getScreenW(8),
                   vertical: 0,
                 ),
                 child: Row(
@@ -87,7 +87,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                         text: productModel.productTitle,
                         color: color,
                         maxLines: 1,
-                        textSize: dimensions.getScreenW(20),
+                        textSize: dimensions.getScreenW(18),
                         isTitle: true,
                       ),
                     ),
@@ -95,7 +95,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                       flex: 1,
                       child: HeartWidget(
                         color: color,
-                        size: dimensions.getScreenW(22),
+                        size: dimensions.getScreenW(20),
                         productId: productModel.productid,
                         isInWishlist: isInWishlist,
                       ),
@@ -194,7 +194,7 @@ class _FeedsWidgetsState extends State<FeedsWidgets> {
                   child: TextWidget(
                     color: color,
                     text: isInCart ? 'In Cart' : 'Add to Cart',
-                    textSize: dimensions.getScreenW(18),
+                    textSize: dimensions.getScreenW(16),
                     maxLines: 1,
                   ),
                 ),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -21,6 +22,7 @@ class CommonFunction {
     final Color color = Utils(context).color;
     final AppDimensions dimensions = AppDimensions(context);
     return AppBar(
+      automaticallyImplyLeading: false,
       leading: isLeading
           ? IconButton(
               style: IconButton.styleFrom(
@@ -55,6 +57,53 @@ class CommonFunction {
           : null,
     );
   }
+
+  static cupertinoAppBar({
+    required BuildContext context,
+    required String text,
+    bool isLeading = false,
+    bool isSuffix = false,
+    void Function()? suffixPress,
+  }) {
+    final Color color = Utils(context).color;
+    final AppDimensions dimensions = AppDimensions(context);
+
+    return CupertinoNavigationBar(
+      middle: TextWidget(
+        text: text,
+        color: color,
+        textSize: dimensions.getScreenW(22),
+        isTitle: true,
+      ),
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+      leading: isLeading
+          ? CupertinoButton(
+              padding: EdgeInsets.zero,
+              child: Icon(
+                CupertinoIcons.back,
+                color: color,
+              ),
+              onPressed: () {
+                Navigator.canPop(context) ? Navigator.pop(context) : null;
+              },
+            )
+          : null,
+      trailing: isSuffix
+          ? CupertinoButton(
+            onPressed: suffixPress,
+              padding: EdgeInsets.zero,
+              child: Icon(
+                CupertinoIcons.delete,
+                color: color,
+              ),
+              
+            )
+          : null,
+    );
+  }
+
+
+
 
   static Future<void> warningDialog({
     required BuildContext context,

@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/firebase_constant.dart';
 import 'package:grocery/models/cart_model.dart';
 
@@ -8,28 +9,81 @@ class CartProvider with ChangeNotifier {
   Map<String, CartModel> get getcartItems => _cartItems;
 
   Future<void> fetchCart() async {
-    final DocumentSnapshot doc = await FirebaseFirestore.instance
-        .collection(constUser)
-        .doc(firebaseAuth.currentUser!.uid)
-        .get();
-    if (!doc.exists) {
+    if (firebaseAuth.currentUser == null) {
+      _cartItems.clear();
       return;
     }
-    final leng = doc.get(constUserCart).length;
-    for (int i = 0; i < leng; i++) {
-      _cartItems.putIfAbsent(
-        doc.get(constUserCart)[i][constCartProductId],
-        () => CartModel(
-          id: doc.get(constUserCart)[i][constCartId],
-          productId: doc.get(constUserCart)[i][constCartProductId],
-          quantity: doc.get(constUserCart)[i][constCartQuantity],
-        ),
-      );
+    try {
+      final DocumentSnapshot doc = await FirebaseFirestore.instance
+          .collection(constUser)
+          .doc(firebaseAuth.currentUser!.uid)
+          .get();
+      if (!doc.exists) {
+        return;
+      }
+      final cartList = doc.get(constUserCart);
+      cartList.forEach((cartItem) {
+        _cartItems.putIfAbsent(
+          cartItem[constCartProductId],
+          () => CartModel(
+            id: cartItem[constCartId],
+            productId: cartItem[constCartProductId],
+            quantity: cartItem[constCartQuantity],
+          ),
+        );
+      });
+      notifyListeners();
+    } catch (error) {
+      CommonFunction.errorToast(
+          error: 'Unable to delete item! Please try later');
     }
-    notifyListeners();
   }
 
+  Future<void> deleteCartItem(String productId) async {
+    if (firebaseAuth.currentUser == null) {
+      return;
+    }
+    try {
+      final DocumentReference userDocRef = FirebaseFirestore.instance
+          .collection(constUser)
+          .doc(firebaseAuth.currentUser!.uid);
 
+      final DocumentSnapshot doc = await userDocRef.get();
+      if (!doc.exists) {
+        return;
+      }
+
+      final cartList = doc.get(constUserCart);
+      cartList
+          .removeWhere((cartItem) => cartItem[constCartProductId] == productId);
+      await userDocRef.update({constUserCart: cartList});
+      _cartItems.remove(productId);
+      notifyListeners();
+    } catch (error) {
+      CommonFunction.errorToast(
+          error: 'Unable to delete item! Please try later');
+    }
+  }
+
+  Future<void> clearCart() async {
+    if (firebaseAuth.currentUser == null) {
+      _cartItems.clear();
+      return;
+    }
+    try {
+      await FirebaseFirestore.instance
+          .collection(constUser)
+          .doc(firebaseAuth.currentUser!.uid)
+          .update({
+        constUserCart: [],
+      });
+      _cartItems.clear();
+      notifyListeners();
+    } catch (error) {
+      CommonFunction.errorToast(
+          error: 'Unable to delete item! Please try later');
+    }
+  }
 
   void minusQuantity(String productId) {
     _cartItems.update(
@@ -52,16 +106,6 @@ class CartProvider with ChangeNotifier {
         quantity: value.quantity + 1,
       ),
     );
-    notifyListeners();
-  }
-
-  void removeOneItem(String productId) {
-    _cartItems.remove(productId);
-    notifyListeners();
-  }
-
-  void clearCart() {
-    _cartItems.clear();
     notifyListeners();
   }
 }

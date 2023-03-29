@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
-import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
+import 'package:grocery/screens/fetch/fetch_screen.dart';
 import 'package:grocery/screens/signin/component/text_fields_signin.dart';
 import 'package:grocery/screens/signup/signup_screen.dart';
 import 'package:grocery/services/auth/auth_services.dart';
@@ -90,7 +90,7 @@ class BodySignInScreen extends StatelessWidget {
             buttonText: 'Continue as Guest',
             press: () {
               CommonFunction.navigateToPage(
-                  context: context, routeName: BottomBarScreen.routeName);
+                  context: context, routeName: FetchScreen.routeName);
             },
             isIcon: false,
           ),

@@ -173,9 +173,9 @@ class _CartItemState extends State<CartItem> {
                       child: Column(
                         children: [
                           InkWell(
-                            onTap: () {
-                              cartProvider
-                                  .removeOneItem(currentProduct.productid);
+                            onTap: () async {
+                              await cartProvider
+                                  .deleteCartItem(currentProduct.productid);
                             },
                             child: Icon(
                               CupertinoIcons.cart_badge_minus,
@@ -196,7 +196,7 @@ class _CartItemState extends State<CartItem> {
                             height: dimensions.getScreenH(5),
                           ),
                           TextWidget(
-                            text: "\$${price.toStringAsFixed(2)}",
+                            text: "\$${(price * int.parse(_quantityController.text)).toStringAsFixed(2)}",
                             color: color,
                             textSize: dimensions.getScreenH(20),
                             maxLines: 1,

@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/provider/cart_provider.dart';
+import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/widgets/green_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
+import 'package:provider/provider.dart';
 
 class CartHeader extends StatelessWidget {
   const CartHeader({
@@ -12,7 +15,18 @@ class CartHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AppDimensions dimensions = AppDimensions(context);
+    final cartProvider = Provider.of<CartProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
     final Color color = Utils(context).color;
+    double totalPrice = 0.0;
+    cartProvider.getcartItems.forEach(
+      (key, value) {
+        final currentProduct = productProvider.findById(value.productId);
+        totalPrice += (currentProduct.productIsOnSale
+            ? currentProduct.productSalePrice
+            : currentProduct.productPrice) * value.quantity;
+      },
+    );
     return SizedBox(
       width: double.infinity,
       height: dimensions.getScreenH(100),
@@ -27,7 +41,7 @@ class CartHeader extends StatelessWidget {
             const Spacer(),
             FittedBox(
               child: TextWidget(
-                text: 'Total: \$0.334',
+                text: 'Total: \$${totalPrice.toStringAsFixed(2)}',
                 color: color,
                 textSize: dimensions.getScreenW(20),
                 isTitle: true,

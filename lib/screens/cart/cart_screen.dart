@@ -14,26 +14,47 @@ class CartScreen extends StatelessWidget {
     final cartProvider = Provider.of<CartProvider>(context);
     final cartItemList = cartProvider.getcartItems.values.toList();
     return Scaffold(
-      appBar: cartItemList.isEmpty
-          ? null
-          : CommonFunction.appBar(
-              context: context,
-              text: 'Cart (${cartItemList.length})',
-              isSuffix: true,
-              suffixPress: () async {
-                await CommonFunction.warningDialog(
+      appBar: Theme.of(context).platform == TargetPlatform.iOS
+          ? cartItemList.isEmpty
+              ? null
+              : CommonFunction.cupertinoAppBar(
                   context: context,
-                  text: 'Empty your cart',
-                  subTitle: 'Are you sure?',
-                  press: () {
-                    cartProvider.clearCart();
-                    if (Navigator.canPop(context)) {
-                      Navigator.pop(context);
-                    }
+                  text: 'Cart (${cartItemList.length})',
+                  isSuffix: true,
+                  suffixPress: () async {
+                    await CommonFunction.warningDialog(
+                      context: context,
+                      text: 'Empty your cart',
+                      subTitle: 'Are you sure?',
+                      press: () {
+                        cartProvider.clearCart();
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        }
+                      },
+                    );
                   },
-                );
-              },
-            ),
+                )
+          : cartItemList.isEmpty
+              ? null
+              : CommonFunction.appBar(
+                  context: context,
+                  text: 'Cart (${cartItemList.length})',
+                  isSuffix: true,
+                  suffixPress: () async {
+                    await CommonFunction.warningDialog(
+                      context: context,
+                      text: 'Empty your cart',
+                      subTitle: 'Are you sure?',
+                      press: () {
+                        cartProvider.clearCart();
+                        if (Navigator.canPop(context)) {
+                          Navigator.pop(context);
+                        }
+                      },
+                    );
+                  },
+                ),
       body: const BodyCartScreen(),
     );
   }

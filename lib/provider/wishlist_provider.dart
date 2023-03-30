@@ -9,24 +9,6 @@ class WishlistProvider with ChangeNotifier {
 
   Map<String, WishlistModel> get getwhislistItems => _whislistItems;
 
-  // void addRemoveProductsToWishlist({
-  //   required String productId,
-  // }) {
-  //   if (_whislistItems.containsKey(productId)) {
-  //     removeOneItem(productId);
-  //     notifyListeners();
-  //   } else {
-  //     _whislistItems.putIfAbsent(
-  //       productId,
-  //       () => WishlistModel(
-  //         id: DateTime.now().toString(),
-  //         productId: productId,
-  //       ),
-  //     );
-  //     notifyListeners();
-  //   }
-  // }
-
     Future<void> fetchWish() async {
     if (firebaseAuth.currentUser == null) {
       _whislistItems.clear();
@@ -57,7 +39,7 @@ class WishlistProvider with ChangeNotifier {
     }
   }
 
-    Future<void> deleteCartItem(String productId) async {
+    Future<void> deleteWishItem(String productId) async {
     if (firebaseAuth.currentUser == null) {
       return;
     }

@@ -61,8 +61,7 @@ class _MyAppState extends State<MyApp> {
             ChangeNotifierProvider(create: (_) => productProvider),
             ChangeNotifierProvider(create: (_) => cartProvider),
             ChangeNotifierProvider(create: (_) => wishlistProvider),
-            ChangeNotifierProvider(create: (_) => viewedProvider),
-            ChangeNotifierProvider(create: (_) => firebaseProvider),
+            ChangeNotifierProvider(create: (_) => viewedProvider)
           ],
           child: Consumer<DarkThemeProvider>(
             builder: (context, darkThemeProvider, child) {
@@ -86,7 +85,7 @@ class _MyAppState extends State<MyApp> {
   CartProvider cartProvider = CartProvider();
   WishlistProvider wishlistProvider = WishlistProvider();
   ViewedProvider viewedProvider = ViewedProvider();
-  ViewedProvider firebaseProvider = ViewedProvider();
+  
 
   void getCurrentAppTheme() async {
     darkThemeProvider.setDarkTheme =

@@ -1,12 +1,16 @@
 import 'package:fancy_shimmer_image/fancy_shimmer_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_iconly/flutter_iconly.dart';
+import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
+import 'package:grocery/constants/firebase_constant.dart';
 import 'package:grocery/constants/utils.dart';
 import 'package:grocery/models/wishlist_model.dart';
+import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/details/details_screen.dart';
+import 'package:grocery/services/products/products_firestore.dart';
 import 'package:grocery/widgets/heart_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
@@ -23,12 +27,15 @@ class ProductContainer extends StatelessWidget {
     final wishlistModel = Provider.of<WishlistModel>(context);
     final productProvider = Provider.of<ProductProvider>(context);
     final wishlistProvider = Provider.of<WishlistProvider>(context);
+    final cartProvider = Provider.of<CartProvider>(context);
     final currentProduct = productProvider.findById(wishlistModel.productId);
     final double price = currentProduct.productIsOnSale
         ? currentProduct.productSalePrice
         : currentProduct.productPrice;
     bool? isInWishlist =
         wishlistProvider.getwhislistItems.containsKey(wishlistModel.productId);
+    bool isInCart =
+        cartProvider.getcartItems.containsKey(currentProduct.productid);
     return Padding(
       padding: EdgeInsets.symmetric(
           horizontal: dimensions.getScreenW(8),
@@ -70,11 +77,27 @@ class ProductContainer extends StatelessWidget {
                     Row(
                       children: [
                         IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            isInCart
+                                ? null
+                                : () async {
+                                    if (firebaseAuth.currentUser == null) {
+                                      CommonFunction.errorToast(
+                                        error: 'Please Login First',
+                                      );
+                                      return;
+                                    }
+                                    await ProductFireStore
+                                        .addProductToUserWishlist(
+                                      productId: currentProduct.productid,
+                                    );
+                                    await wishlistProvider.fetchWish();
+                                  };
+                          },
                           icon: Icon(
-                            IconlyLight.bag2,
-                            color: color,
-                            size: dimensions.getScreenW(25),
+                            isInCart ? IconlyBold.bag2 : IconlyLight.bag2,
+                            color: isInCart ? Colors.green : color,
+                            size: dimensions.getScreenW(22),
                           ),
                         ),
                         HeartWidget(

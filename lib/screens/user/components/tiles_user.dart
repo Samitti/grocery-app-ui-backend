@@ -27,7 +27,7 @@ class TilesUser extends StatefulWidget {
 }
 
 class _TilesUserState extends State<TilesUser> {
-  UserModel? _user;
+  static UserModel? _user;
 
   @override
   void dispose() {
@@ -62,7 +62,7 @@ class _TilesUserState extends State<TilesUser> {
           .collection('users')
           .doc(firebaseAuth.currentUser!.uid)
           .update({
-        'address': addressController.text,
+        constUserAddress: addressController.text,
       });
       Navigator.pop(context);
       setState(() {
@@ -70,7 +70,7 @@ class _TilesUserState extends State<TilesUser> {
       });
       CommonFunction.errorToast(error: "Updated Successfully");
     } catch (err) {
-      // handle ecxeptions
+      CommonFunction.errorToast(error: "Unable to update your address");
     }
   }
 

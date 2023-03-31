@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/firebase_constant.dart';
+import 'package:grocery/models/order_model.dart';
 import 'package:uuid/uuid.dart';
 
 class ProductFireStore {
@@ -47,6 +48,18 @@ class ProductFireStore {
       CommonFunction.errorToast(error: 'Added to wishlist');
     } catch (error) {
       CommonFunction.errorToast(error: '$error');
+    }
+  }
+    static Future<void> orderPlaced(String id, OrderModel order) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection(constOrder)
+          .doc(id)
+          .set(order.toMap());
+    } on FirebaseException {
+      CommonFunction.errorToast(
+        error: 'Error Setting Data',
+      );
     }
   }
 }

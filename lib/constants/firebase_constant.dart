@@ -7,8 +7,10 @@ final FirebaseFirestore firebaseFirestore = FirebaseFirestore.instance;
 // collection constant
 const String constUser = "users";
 const String constProduct = "products";
+const String constOrder = "orders";
 
 // user constant
+const String constUserId = "id";
 const String constUserName = "name";
 const String constUserEmail = "email";
 const String constUserAddress = "shipping-address";
@@ -34,3 +36,14 @@ const String constCartQuantity = "productCartQuantity";
 // whislist constant
 const String constWishtId = "wishId";
 const String constProductWishId = "productWishId";
+
+
+// order constant
+const String constOrderId = "orderId";
+const String consOrderUserId = "userid";
+const String constOrderUserName = "username";
+const String constOrderUserAddress = "user-shipping-address";
+const String constOrderProductId = "productid";
+const String constOrderProductImage = "productimageUrl";
+const String constOrderQuantity = "productquantity";
+const String constOrderProductPrice = "productprice";

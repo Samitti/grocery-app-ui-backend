@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
+import 'package:grocery/constants/firebase_constant.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/models/order_model.dart';
+import 'package:grocery/models/user_model.dart';
 import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
+import 'package:grocery/services/auth/auth_firestore.dart';
+import 'package:grocery/services/products/products_firestore.dart';
 import 'package:grocery/widgets/green_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 import 'package:provider/provider.dart';
+import 'package:uuid/uuid.dart';
 
 class CartHeader extends StatelessWidget {
   const CartHeader({
@@ -19,14 +26,43 @@ class CartHeader extends StatelessWidget {
     final productProvider = Provider.of<ProductProvider>(context);
     final Color color = Utils(context).color;
     double totalPrice = 0.0;
+
     cartProvider.getcartItems.forEach(
       (key, value) {
         final currentProduct = productProvider.findById(value.productId);
         totalPrice += (currentProduct.productIsOnSale
-            ? currentProduct.productSalePrice
-            : currentProduct.productPrice) * value.quantity;
+                ? currentProduct.productSalePrice
+                : currentProduct.productPrice) *
+            value.quantity;
       },
     );
+
+    void orderPlacing() async {
+      final orderId = const Uuid().v4();
+      cartProvider.getcartItems.forEach((key, value) async {
+        final currentProduct = productProvider.findById(
+          value.productId,
+        );
+        UserModel? user =
+            await AuthFireStore.getUserData(firebaseAuth.currentUser!.uid);
+        ProductFireStore.orderPlaced(
+          orderId,
+          OrderModel(
+            orderId: orderId,
+            userId: user!.id,
+            userName: user.name,
+            userAddress: user.address,
+            productId: value.productId,
+            productImageUrl: currentProduct.productImageUrl,
+            totalPrice: totalPrice.toString(),
+            productQuantity: value.quantity.toString(),
+          ),
+        );
+      });
+      await cartProvider.clearCart();
+      CommonFunction.errorToast(error: 'You order has been placed successfully');
+    }
+
     return SizedBox(
       width: double.infinity,
       height: dimensions.getScreenH(100),
@@ -36,7 +72,9 @@ class CartHeader extends StatelessWidget {
           children: [
             GreenButtonWidget(
               text: 'Order Now',
-              press: () {},
+              press: () {
+                orderPlacing();
+              },
             ),
             const Spacer(),
             FittedBox(

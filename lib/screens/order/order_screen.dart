@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
+import 'package:grocery/provider/order_provider.dart';
 import 'package:grocery/screens/order/componetns/body.dart';
+import 'package:provider/provider.dart';
 
 class OrderScreen extends StatelessWidget {
   static String routeName = "/order";
@@ -8,12 +10,13 @@ class OrderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-        const bool isEmpty = true;
+    final orderProvider = Provider.of<OrderProvider>(context);
     return Scaffold(
-      appBar: isEmpty
+      appBar: orderProvider.getOrdersList.isEmpty
           ? null
-          : CommonFunction.appBar(context: context, text: 'Orders', isLeading: true),
-      body: const SingleChildScrollView(child: BodyOrderScreen()),
+          : CommonFunction.appBar(
+              context: context, text: 'Orders', isLeading: true),
+      body: const BodyOrderScreen(),
     );
   }
 }

@@ -9,7 +9,7 @@ class WishlistProvider with ChangeNotifier {
 
   Map<String, WishlistModel> get getwhislistItems => _whislistItems;
 
-    Future<void> fetchWish() async {
+  Future<void> fetchWish() async {
     if (firebaseAuth.currentUser == null) {
       _whislistItems.clear();
       return;
@@ -35,7 +35,7 @@ class WishlistProvider with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       CommonFunction.errorToast(
-          error: 'Unable to delete item! Please try later');
+          error: 'Unable to load item! Please try later');
     }
   }
 
@@ -81,7 +81,7 @@ class WishlistProvider with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       CommonFunction.errorToast(
-          error: 'Unable to delete item! Please try later');
+          error: 'Unable to delete items! Please try later');
     }
   }
 }

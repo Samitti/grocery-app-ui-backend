@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:grocery/constants/firebase_constant.dart';
 import 'package:grocery/provider/cart_provider.dart';
+import 'package:grocery/provider/order_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/provider/wishlist_provider.dart';
 import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
@@ -28,9 +30,13 @@ class _FetchScreenState extends State<FetchScreen> {
       final cartProvider = Provider.of<CartProvider>(context, listen: false);
       final wishProvider =
           Provider.of<WishlistProvider>(context, listen: false);
+      final orderProvider = Provider.of<OrderProvider>(context, listen: false);
       await productProvider.fetchProducts();
-      await cartProvider.fetchCart();
-      await wishProvider.fetchWish();
+      if (firebaseAuth.currentUser != null) {
+        await cartProvider.fetchCart();
+        await wishProvider.fetchWish();
+        await orderProvider.fetchOrders(userId: firebaseAuth.currentUser!.uid);
+      }
       Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
     });
   }

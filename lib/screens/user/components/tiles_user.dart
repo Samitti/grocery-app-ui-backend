@@ -154,6 +154,7 @@ class _TilesUserState extends State<TilesUser> {
               subTitle: 'Are you sure?',
               press: () {
                 AuthServices().signOut(context: context);
+                _user = null;
                 CommonFunction.navigateToPage(
                     context: context, routeName: SignInScreen.routeName);
                 return;

@@ -6,6 +6,7 @@ import 'package:grocery/constants/theme_data.dart';
 import 'package:grocery/firebase_options.dart';
 import 'package:grocery/provider/cart_provider.dart';
 import 'package:grocery/provider/dark_theme_provider.dart';
+import 'package:grocery/provider/order_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/provider/viewed_provider.dart';
 import 'package:grocery/provider/wishlist_provider.dart';
@@ -61,7 +62,8 @@ class _MyAppState extends State<MyApp> {
             ChangeNotifierProvider(create: (_) => productProvider),
             ChangeNotifierProvider(create: (_) => cartProvider),
             ChangeNotifierProvider(create: (_) => wishlistProvider),
-            ChangeNotifierProvider(create: (_) => viewedProvider)
+            ChangeNotifierProvider(create: (_) => viewedProvider),
+            ChangeNotifierProvider(create: (_) => orderProvider),
           ],
           child: Consumer<DarkThemeProvider>(
             builder: (context, darkThemeProvider, child) {
@@ -85,6 +87,7 @@ class _MyAppState extends State<MyApp> {
   CartProvider cartProvider = CartProvider();
   WishlistProvider wishlistProvider = WishlistProvider();
   ViewedProvider viewedProvider = ViewedProvider();
+  OrderProvider orderProvider = OrderProvider();
   
 
   void getCurrentAppTheme() async {

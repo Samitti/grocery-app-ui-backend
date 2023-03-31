@@ -11,7 +11,7 @@ class OrderModel with ChangeNotifier {
   final String productImageUrl;
   final String totalPrice;
   final String productQuantity;
-  final Timestamp orderDate = Timestamp.now();
+  final Timestamp orderDate;
 
   OrderModel({
     required this.orderId,
@@ -22,6 +22,7 @@ class OrderModel with ChangeNotifier {
     required this.productImageUrl,
     required this.totalPrice,
     required this.productQuantity,
+    required this.orderDate,
   });
 
   factory OrderModel.fromFirestore(DocumentSnapshot doc) {
@@ -35,6 +36,7 @@ class OrderModel with ChangeNotifier {
       productImageUrl: data[constOrderProductImage] ?? '',
       totalPrice: data[constOrderProductPrice] ?? '',
       productQuantity: data[constOrderQuantity] ?? '',
+      orderDate: data[constOrderQuantity] ?? '',
     );
   }
 

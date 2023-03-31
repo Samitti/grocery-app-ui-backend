@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/firebase_constant.dart';
 import 'package:grocery/models/product_model.dart';
 
@@ -16,30 +17,34 @@ class ProductProvider with ChangeNotifier {
   }
 
   Future<void> fetchProducts() async {
-    await firebaseFirestore
-        .collection(constProduct)
-        .get()
-        .then((QuerySnapshot productSnapshot) {
-      for (var element in productSnapshot.docs) {
-        _products.insert(
-            0,
-            ProductModel(
-              productid: element.get(constProductId),
-              productTitle: element.get(constProductTitle),
-              productImageUrl: element.get(constProductImage),
-              productCategory: element.get(constProductCategory),
-              productPrice: double.parse(
-                element.get(constProductPrice).toString(),
-              ),
-              productSalePrice: double.parse(
-                element.get(constProductPriceSale).toString(),
-              ),
-              productIsOnSale: element.get(constProductIsOnSale),
-              productIsPiece: element.get(constProductIsPiece),
-            ));
-      }
-    });
-    notifyListeners();
+    try {
+      await firebaseFirestore
+          .collection(constProduct)
+          .get()
+          .then((QuerySnapshot productSnapshot) {
+        for (var element in productSnapshot.docs) {
+          _products.insert(
+              0,
+              ProductModel(
+                productid: element.get(constProductId),
+                productTitle: element.get(constProductTitle),
+                productImageUrl: element.get(constProductImage),
+                productCategory: element.get(constProductCategory),
+                productPrice: double.parse(
+                  element.get(constProductPrice).toString(),
+                ),
+                productSalePrice: double.parse(
+                  element.get(constProductPriceSale).toString(),
+                ),
+                productIsOnSale: element.get(constProductIsOnSale),
+                productIsPiece: element.get(constProductIsPiece),
+              ));
+        }
+      });
+      notifyListeners();
+    } catch (error) {
+      CommonFunction.errorToast(error: 'Unable to load item! Please try later');
+    }
   }
 
   List<ProductModel> get onSale {

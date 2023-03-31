@@ -35,7 +35,7 @@ class CartProvider with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       CommonFunction.errorToast(
-          error: 'Unable to delete item! Please try later');
+          error: 'Unable to load your cart item! Please try later');
     }
   }
 
@@ -81,7 +81,7 @@ class CartProvider with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       CommonFunction.errorToast(
-          error: 'Unable to delete item! Please try later');
+          error: 'Unable to delete items! Please try later');
     }
   }
 

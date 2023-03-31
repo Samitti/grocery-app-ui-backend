@@ -48,7 +48,7 @@ class BodySignInScreen extends StatelessWidget {
           SizedBox(
             height: dimensions.getScreenH(10),
           ),
-                    Row(
+          Row(
             children: [
               Expanded(
                 child: Divider(
@@ -90,7 +90,9 @@ class BodySignInScreen extends StatelessWidget {
             buttonText: 'Continue as Guest',
             press: () {
               CommonFunction.navigateToPage(
-                  context: context, routeName: FetchScreen.routeName);
+                context: context,
+                routeName: FetchScreen.routeName,
+              );
             },
             isIcon: false,
           ),

@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
@@ -6,6 +7,7 @@ import 'package:grocery/constants/utils.dart';
 import 'package:grocery/models/order_model.dart';
 import 'package:grocery/models/user_model.dart';
 import 'package:grocery/provider/cart_provider.dart';
+import 'package:grocery/provider/order_provider.dart';
 import 'package:grocery/provider/product_provider.dart';
 import 'package:grocery/services/auth/auth_firestore.dart';
 import 'package:grocery/services/products/products_firestore.dart';
@@ -24,6 +26,7 @@ class CartHeader extends StatelessWidget {
     final AppDimensions dimensions = AppDimensions(context);
     final cartProvider = Provider.of<CartProvider>(context);
     final productProvider = Provider.of<ProductProvider>(context);
+    final orderProvider = Provider.of<OrderProvider>(context);
     final Color color = Utils(context).color;
     double totalPrice = 0.0;
 
@@ -56,11 +59,14 @@ class CartHeader extends StatelessWidget {
             productImageUrl: currentProduct.productImageUrl,
             totalPrice: totalPrice.toString(),
             productQuantity: value.quantity.toString(),
+            orderDate: Timestamp.now(),
           ),
         );
       });
       await cartProvider.clearCart();
-      CommonFunction.errorToast(error: 'You order has been placed successfully');
+      await orderProvider.fetchOrders(userId: firebaseAuth.currentUser!.uid);
+      CommonFunction.errorToast(
+          error: 'You order has been placed successfully');
     }
 
     return SizedBox(

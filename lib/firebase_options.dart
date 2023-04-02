@@ -50,7 +50,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyCzoWjpUMI68UenHeJPmU7GtT73Q5O3SgQ',
+    apiKey: 'YOUR API',
     appId: '1:750800242395:android:85ca8c23a8c9bc65386efe',
     messagingSenderId: '750800242395',
     projectId: 'flutter-grocery-app-fg',
@@ -58,7 +58,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAMOsj0YZTUUdPPhsIYL07Osk7HoW5GiMg',
+    apiKey: 'YOUR API KEY',
     appId: '1:750800242395:ios:199ae3504f9f609f386efe',
     messagingSenderId: '750800242395',
     projectId: 'flutter-grocery-app-fg',

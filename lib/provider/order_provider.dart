@@ -5,30 +5,30 @@ import 'package:grocery/constants/firebase_constant.dart';
 import 'package:grocery/models/order_model.dart';
 
 class OrderProvider with ChangeNotifier {
-  static final List<OrderModel> _orders = [];
+  static List<OrderModel> orders = [];
 
   List<OrderModel> get getOrdersList {
-    return _orders;
+    return orders;
   }
 
   Future<void> fetchOrders({required String userId}) async {
     if (firebaseAuth.currentUser == null) {
-      _orders.clear();
+      orders.clear();
       return;
     }
     try {
       await FirebaseFirestore.instance
           .collection(constOrder)
-          .where(consOrderUserId, isEqualTo: userId)
+          .where(constOrderUserId, isEqualTo: userId)
           .get()
           .then((QuerySnapshot ordersSnapshot) {
-        _orders.clear();
+        orders = [];
         for (var element in ordersSnapshot.docs) {
-          _orders.insert(
+          orders.insert(
             0,
             OrderModel(
               orderId: element.get(constOrderId),
-              userId: element.get(consOrderUserId),
+              userId: element.get(constOrderUserId),
               userName: element.get(constOrderUserName),
               userAddress: element.get(constOrderUserAddress),
               productId: element.get(constOrderProductId),
@@ -43,7 +43,7 @@ class OrderProvider with ChangeNotifier {
       notifyListeners();
     } catch (error) {
       CommonFunction.errorToast(
-          error: 'Unable to load your previous order item! Please try later');
+          error: 'Unable to load your orders! Please try later');
     }
   }
 }

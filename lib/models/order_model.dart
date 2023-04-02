@@ -29,7 +29,7 @@ class OrderModel with ChangeNotifier {
     Map data = doc.data() as Map<String, dynamic>;
     return OrderModel(
       orderId: doc.id,
-      userId: data[consOrderUserId] ?? '',
+      userId: data[constOrderUserId] ?? '',
       userName: data[constOrderUserName] ?? '',
       userAddress: data[constOrderUserAddress] ?? '',
       productId: data[constOrderProductId] ?? '',
@@ -43,7 +43,7 @@ class OrderModel with ChangeNotifier {
   Map<String, dynamic> toMap() {
     return {
       constOrderId: orderId,
-      consOrderUserId: userId,
+      constOrderUserId: userId,
       constOrderUserName: userName,
       constOrderUserAddress: userAddress,
       constOrderProductId: productId,

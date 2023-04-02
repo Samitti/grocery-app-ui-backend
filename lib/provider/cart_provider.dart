@@ -22,6 +22,7 @@ class CartProvider with ChangeNotifier {
         return;
       }
       final cartList = doc.get(constUserCart);
+      _cartItems.clear();
       cartList.forEach((cartItem) {
         _cartItems.putIfAbsent(
           cartItem[constCartProductId],

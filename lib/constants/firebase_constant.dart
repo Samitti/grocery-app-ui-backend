@@ -40,7 +40,7 @@ const String constProductWishId = "productWishId";
 
 // order constant
 const String constOrderId = "orderId";
-const String consOrderUserId = "userid";
+const String constOrderUserId = "userid";
 const String constOrderUserName = "username";
 const String constOrderUserAddress = "user-shipping-address";
 const String constOrderProductId = "productid";

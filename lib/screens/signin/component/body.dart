@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/dimension.dart';
 import 'package:grocery/constants/utils.dart';
+import 'package:grocery/provider/order_provider.dart';
 import 'package:grocery/screens/fetch/fetch_screen.dart';
 import 'package:grocery/screens/signin/component/text_fields_signin.dart';
 import 'package:grocery/screens/signup/signup_screen.dart';
@@ -93,6 +94,7 @@ class BodySignInScreen extends StatelessWidget {
                 context: context,
                 routeName: FetchScreen.routeName,
               );
+              OrderProvider.orders = [];
             },
             isIcon: false,
           ),

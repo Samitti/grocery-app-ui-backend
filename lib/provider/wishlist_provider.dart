@@ -23,6 +23,7 @@ class WishlistProvider with ChangeNotifier {
         return;
       }
       final wishList = doc.get(constUserWishlist);
+       _whislistItems.clear();
       wishList.forEach((wishItem) {
         _whislistItems.putIfAbsent(
           wishItem[constProductWishId],

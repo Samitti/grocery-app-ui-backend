@@ -32,11 +32,11 @@ class _FetchScreenState extends State<FetchScreen> {
           Provider.of<WishlistProvider>(context, listen: false);
       final orderProvider = Provider.of<OrderProvider>(context, listen: false);
       await productProvider.fetchProducts();
-      if (firebaseAuth.currentUser != null) {
         await cartProvider.fetchCart();
         await wishProvider.fetchWish();
-        await orderProvider.fetchOrders(userId: firebaseAuth.currentUser!.uid);
-      }
+        if(firebaseAuth.currentUser !=null){
+          await orderProvider.fetchOrders(userId: firebaseAuth.currentUser!.uid);
+        }
       Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
     });
   }

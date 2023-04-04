@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/firebase_constant.dart';
@@ -11,18 +12,19 @@ class OrderProvider with ChangeNotifier {
     return orders;
   }
 
-  Future<void> fetchOrders({required String userId}) async {
+  Future<void> fetchOrders() async {
     if (firebaseAuth.currentUser == null) {
       orders.clear();
       return;
     }
     try {
+      User? user = firebaseAuth.currentUser;
       await FirebaseFirestore.instance
           .collection(constOrder)
-          .where(constOrderUserId, isEqualTo: userId)
+          .where(constOrderUserId, isEqualTo: user!.uid)
           .get()
           .then((QuerySnapshot ordersSnapshot) {
-        orders = [];
+        // orders = [];
         for (var element in ordersSnapshot.docs) {
           orders.insert(
             0,

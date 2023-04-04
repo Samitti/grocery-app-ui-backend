@@ -7,7 +7,6 @@ import 'package:grocery/provider/order_provider.dart';
 import 'package:grocery/screens/fetch/fetch_screen.dart';
 import 'package:grocery/screens/signin/component/text_fields_signin.dart';
 import 'package:grocery/screens/signup/signup_screen.dart';
-import 'package:grocery/services/auth/auth_services.dart';
 import 'package:grocery/widgets/button_widget.dart';
 import 'package:grocery/widgets/text_widget.dart';
 
@@ -77,12 +76,6 @@ class BodySignInScreen extends StatelessWidget {
           ),
           SizedBox(
             height: dimensions.getScreenH(10),
-          ),
-          ButtonWidget(
-            isIcon: true,
-            press: () {
-              AuthServices().signUpWithGoogle(context: context);
-            },
           ),
           SizedBox(
             height: dimensions.getScreenH(10),

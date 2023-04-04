@@ -64,7 +64,7 @@ class CartHeader extends StatelessWidget {
         );
       });
       await cartProvider.clearCart();
-      await orderProvider.fetchOrders(userId: firebaseAuth.currentUser!.uid);
+      await orderProvider.fetchOrders();
       CommonFunction.errorToast(
           error: 'You order has been placed successfully');
     }

@@ -1,12 +1,9 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:grocery/constants/common_functions.dart';
 import 'package:grocery/constants/firebase_constant.dart';
 import 'package:grocery/models/user_model.dart';
-import 'package:grocery/screens/bottom%20bar/bottom_bar_screen.dart';
+import 'package:grocery/provider/order_provider.dart';
 import 'package:grocery/screens/fetch/fetch_screen.dart';
 import 'package:grocery/screens/signin/signin_screen.dart';
 import 'package:grocery/services/auth/auth_firestore.dart';
@@ -95,6 +92,7 @@ class AuthServices {
 
   Future<void> signOut({required context}) async {
     try {
+      OrderProvider.orders = [];
       await firebaseAuth.signOut();
     } catch (e) {
       CommonFunction.errorToast(
@@ -102,84 +100,4 @@ class AuthServices {
       );
     }
   }
-
-  Future<void> signUpWithGoogle({required context}) async {
-    try {
-      final GoogleSignIn googleSignIn = GoogleSignIn();
-      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-
-      if (googleUser == null) {
-        throw CommonFunction.errorToast(
-          error: 'User No Found',
-        );
-      }
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-      await firebaseAuth.signInWithCredential(credential);
-      DocumentSnapshot doc = await FirebaseFirestore.instance
-          .collection(constUser)
-          .doc(firebaseAuth.currentUser!.uid)
-          .get();
-      if (!doc.exists) {
-        await AuthFireStore.setUserData(
-          firebaseAuth.currentUser!.uid,
-          UserModel(
-            id: firebaseAuth.currentUser!.uid,
-            name: googleUser.displayName ?? '',
-            email: googleUser.email,
-            address: '',
-            cart: [],
-            wishlist: [],
-          ),
-        );
-        Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
-        return;
-      } else { 
-        Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
-        return;
-      }
-    } on FirebaseAuthException catch (e) {
-      CommonFunction.errorToast(
-        error: '$e',
-      );
-      rethrow;
-    } on PlatformException catch (e) {
-      if (e.message == "sign_in_failed") {
-        CommonFunction.errorToast(
-          error: 'Sign In Failed',
-        );
-      }
-      rethrow;
-    }
-  }
-
-  // Future<void> signInWithGoogle({required context}) async {
-  //   try {
-  //     final GoogleSignIn googleSignIn = GoogleSignIn();
-  //     final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
-  //     if (googleUser == null) {
-  //       throw CommonFunction.errorToast(
-  //         error: 'User No Found',
-  //       );
-  //     }
-  //     final GoogleSignInAuthentication googleAuth =
-  //         await googleUser.authentication;
-  //     final credential = GoogleAuthProvider.credential(
-  //       accessToken: googleAuth.accessToken,
-  //       idToken: googleAuth.idToken,
-  //     );
-  //     await firebaseAuth.signInWithCredential(credential);
-  //     Navigator.pushReplacementNamed(context, BottomBarScreen.routeName);
-  //     return;
-  //   } on FirebaseAuthException catch (e) {
-  //     CommonFunction.errorToast(
-  //       error: '$e',
-  //     );
-  //     rethrow;
-  //   }
-  // }
 }
